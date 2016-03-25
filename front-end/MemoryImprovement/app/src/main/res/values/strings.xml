@@ -21,4 +21,8 @@
     <string name="register">Register</string>
     <string name="welcome">Welcome !</string>
     <string name="submit">Submit</string>
+    <string name="Personal_Information">Personal Information</string>
+    <string name="Quizes">Quizes</string>
+    <string name="Calendar">Calendar</string>
+    <string name="Gallery">Gallery</string>
 </resources>
