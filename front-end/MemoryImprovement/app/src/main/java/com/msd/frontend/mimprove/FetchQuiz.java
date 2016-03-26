@@ -9,12 +9,11 @@ public class FetchQuiz {
 
     public Quiz createQuiz() {
         this.q = new Quiz();
-//        q.questions = new ArrayList<Question>();
+        //stubbed the values since backend is not ready yet
         MultipleChoiceQuestion q1 = new MultipleChoiceQuestion("What is Your Favorite Colour ?");
         q.addQuestion(q1);
-//        q1.setInCorrectAnswers("Yellow");
-//        q1.setInCorrectAnswers("Red");
-//        q1.setInCorrectAnswers("Green");
+
+
         q1.setInCorrectAnswers("Blue");
         q1.setInCorrectAnswers("White");
         q1.setInCorrectAnswers("Black");
@@ -24,10 +23,8 @@ public class FetchQuiz {
         MultipleChoiceQuestion q2 = new MultipleChoiceQuestion("Which is your favorite holiday destination country?");
         q.addQuestion(q2);
 
-//        q2.setInCorrectAnswers("Italy");
         q2.setInCorrectAnswers("India");
         q2.setInCorrectAnswers("Brazil");
-//        q2.setInCorrectAnswers("France");
         q2.setInCorrectAnswers("Spain");
         q2.setCorrectAnswers("USA");
 
@@ -36,9 +33,6 @@ public class FetchQuiz {
         MultipleChoiceQuestion q3 = new MultipleChoiceQuestion("What is your mother’s maiden name?");
         q.addQuestion(q3);
 
-
-//        q3.setInCorrectAnswers("Mary");
-//        q3.setInCorrectAnswers("Helen");
         q3.setInCorrectAnswers("Alex");
         q3.setInCorrectAnswers("Monica");
         q3.setInCorrectAnswers("Rachel");
@@ -48,8 +42,6 @@ public class FetchQuiz {
         MultipleChoiceQuestion q4 = new MultipleChoiceQuestion("What is your cellphone last two digits?");
         q.addQuestion(q4);
 
-//        q4.setInCorrectAnswers("88");
-//        q4.setInCorrectAnswers("12");
         q4.setInCorrectAnswers("23");
         q4.setInCorrectAnswers("56");
         q4.setInCorrectAnswers("34");
@@ -59,8 +51,6 @@ public class FetchQuiz {
         MultipleChoiceQuestion q5 = new MultipleChoiceQuestion("In which city were you born?");
         q.addQuestion(q5);
 
-//        q5.setInCorrectAnswers("Bangalore");
-//        q5.setInCorrectAnswers("Paris");
         q5.setInCorrectAnswers("San Fransisco");
         q5.setInCorrectAnswers("San Jose");
         q5.setInCorrectAnswers("Boston");
@@ -71,64 +61,31 @@ public class FetchQuiz {
         q.addQuestion(q6);
 
         q6.setCorrectAnswer("October");
-//        options.add("January");
-//        options.add("Febrarury");
-//        options.add("December");
-//        options.add("July");
-//        options.add("June");
-//        q6.setPreSelectedOptions(options);
-
 
         OneWord q7 = new OneWord("Which is your favorite number?");
         q.addQuestion(q7);
-//        options = new HashSet<String>();
-//        options.add("7");
-//        options.add("10");
-//        options.add("14");
-//        options.add("88");
-//        options.add("0");
-//        options.add("1");
         q7.setCorrectAnswer("7");
 
 
         OneWord q8 = new OneWord("Who is your favorite celebrity?");
         q.addQuestion(q8);
-//        options = new HashSet<String>();
-//        options.add("Christian Bale");
-//        options.add("Leonardo De Caprio");
-//        options.add("Sachin Tendulkar");
-//        options.add("Roger Federer");
-//        options.add("Kobe Bryant");
-//        options.add("Lebron James");
         q8.setCorrectAnswer("Christian Bale");
 
 
         OneWord q9 = new OneWord("Who is your role model?");
         q.addQuestion(q9);
-//        options = new HashSet<String>();
-//        options.add("Brother");
-//        options.add("Father");
-//        options.add("Mother");
-//        options.add("Sister");
-//        options.add("Al Pacino");
         q9.setCorrectAnswer("Barack Obama");
 
 
         OneWord q10 = new OneWord("Your favorite type of food?");
         q.addQuestion(q10);
-//        options = new HashSet<String>();
-//        options.add("Indian");
-//        options.add("Mexican");
-//        options.add("Chinese");
-//        options.add("Thai");
-//        options.add("Meditterian");
-//        options.add("Japanese");
         q10.setCorrectAnswer("Indian");
 
         return this.q;
     }
 }
 
+//Sample question objects
 //        Question q11 = new MultipleChoiceQuestion("Your favorite movie?",11);
 //        q.addQuestion(q11);
 //        options = new HashSet<String>();
