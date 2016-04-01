@@ -33,7 +33,7 @@ public class FetchQuiz {
         MultipleChoiceQuestion q3 = new MultipleChoiceQuestion("What is your mother’s maiden name?");
         q.addQuestion(q3);
 
-        q3.setInCorrectAnswers("Alex");
+        q3.setInCorrectAnswers("Alexa");
         q3.setInCorrectAnswers("Monica");
         q3.setInCorrectAnswers("Rachel");
         q3.setCorrectAnswers("Susan");
