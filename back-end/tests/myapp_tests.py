@@ -40,7 +40,7 @@ class mimproveTestCase(unittest.TestCase):
         os.unlink(mimprove.app.config['DATABASE'])
     
     def get_quiz(self, username):
-        return self.app.post('/quiz', data=dict(username=username))
+        return self.app.post('/quiz/get_quiz', data=dict(username=username))
     
     def test_home_status_code(self):
         # sends HTTP GET request to the application
