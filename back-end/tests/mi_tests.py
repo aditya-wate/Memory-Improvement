@@ -15,8 +15,6 @@ parentdir = os.path.dirname(currentdir)
 sys.path.insert(0,parentdir)
 
 import mimprove
-from mimprove.models import db
-from mimprove.models.db_models import User
 
 # Initialize the application
 app = mimprove.create_app()
@@ -24,23 +22,17 @@ app = mimprove.create_app()
 class mimproveTestCase(unittest.TestCase):
     
     def setUp(self):
-        
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:wstwbh57@localhost:3306/memory_improve'
-        #app.config['SECRET_KEY'] = 'session_key'
         app.testing = True
-
+        
         with app.app_context():
-            db.init_app(current_app)
-            self.db = db
             self.app = app.test_client()
         
-    
     def tearDown(self):
-        os.close(self.db)
-        os.unlink(mimprove.app.config['DATABASE'])
+        pass
     
     def get_quiz(self, username):
         return self.app.post('/quiz/get_quiz', data=dict(username=username))
+        #return self.app.get('/quiz/get_quiz?username=test_patient')
     
     def test_home_status_code(self):
         # sends HTTP GET request to the application
@@ -53,17 +45,31 @@ class mimproveTestCase(unittest.TestCase):
     def test_quiz(self):
         """Testing the fetching of quiz questions for a particular user"""
         with app.app_context():
-            user = User.query.get('3')
-
+            
+            username = 'test_patient'
             #fetch the quiz
-            rv = self.get_quiz(user.username)
+            rv = self.get_quiz(username)
+
+            #check if a valid response
             assert rv.status_code == 200
 
-            #load test json file expected response
-            with open(os.path.join('files', 'test_quiz' + '.json'),'r') as rf:
-                exp_response = json.load(rf)
-                
-            assert json.loads(rv.data) == exp_response
+            #load the response data
+            resp = json.loads(rv.data)
+
+            resp_quiz = resp['quiz']
+            #check the number of questions
+            assert len(resp_quiz) == 10
+
+            #check if the quiz is a list
+            assert isinstance(resp_quiz,list)
+
+            #check for keys
+            for question in resp_quiz:
+                assert 'text' in question
+                assert 'correct_answer' in question
+                assert 'incorrect_answer1' in question
+                assert 'incorrect_answer2' in question
+                assert 'incorrect_answer3' in question
              
 if __name__ == '__main__':
     unittest.main()
