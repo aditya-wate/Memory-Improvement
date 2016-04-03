@@ -9,12 +9,65 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.msd.frontend.mimprove.HomeScreenActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/welcome"
-        android:id="@+id/textView2"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+    <Button
+        android:id="@+id/angry_btn"
+        android:text="Personal Information"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#9168A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="79dp" />
+    <Button
+        android:id="@+id/angry_bt"
+        android:text="Take Quiz"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:background="@drawable/buttonshape2"
+        android:shadowColor="#9168A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:layout_below="@+id/angry_btn"
+        android:layout_alignLeft="@+id/angry_btn"
+        android:layout_alignStart="@+id/angry_btn" />
+    <Button
+        android:id="@+id/angry_b"
+        android:text="Calendar"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:background="@drawable/buttonshape3"
+        android:shadowColor="#9168A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:layout_below="@+id/angry_bt"
+        android:layout_alignLeft="@+id/angry_bt"
+        android:layout_alignStart="@+id/angry_bt" />
+    <Button
+        android:id="@+id/angryb"
+        android:text="Gallery"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:background="@drawable/buttonshape4"
+        android:shadowColor="#9168A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:layout_below="@+id/angry_b"
+        android:layout_centerHorizontal="true"
+        android:onClick="OpenGallery"/>
+
 </RelativeLayout>
