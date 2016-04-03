@@ -40,7 +40,7 @@ DROP TABLE IF EXISTS category_city,
 
 CREATE TABLE user (
   user_id INT(11) NOT NULL AUTO_INCREMENT,
-  username CHAR(30) NOT NULL,
+  username CHAR(30) NOT NULL UNIQUE,
   password_hash CHAR(61) NOT NULL,
   first_name CHAR(30) NOT NULL,
   last_name INT(30) NOT NULL,
@@ -77,7 +77,7 @@ CREATE TABLE quiz (
 
 CREATE TABLE question (
   question_id INT(11) NOT NULL AUTO_INCREMENT,
-  category CHAR(20) NOT NULL,
+  category CHAR(30) NOT NULL,
   question_string CHAR(50) NOT NULL,
   answer CHAR(30) NOT NULL,
   patient_id INT(11) NOT NULL,
@@ -388,7 +388,7 @@ INSERT INTO question VALUES(2,
                             
 INSERT INTO question VALUES(3, 
 							'category_people_female',
-                            'What is your mother’s maiden name?',
+                            'What is your mother\'s maiden name?',
                             'Marie',
                             1);
                             
@@ -411,7 +411,7 @@ INSERT INTO question VALUES(6,
                             1);
                             
 INSERT INTO question VALUES(7, 
-							'category_celebrity',
+							'category_celebrities',
                             'Who is your favorite celebrity?',
                             'Bill Murray',
                             1);
@@ -429,7 +429,7 @@ INSERT INTO question VALUES(9,
                             1);
                             
 INSERT INTO question VALUES(10, 
-							'category_animal',
+							'category_animals',
                             'Which pet do you have',
                             'Hamster',
                             1);                            
