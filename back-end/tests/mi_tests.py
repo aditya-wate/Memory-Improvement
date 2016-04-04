@@ -19,7 +19,7 @@ import mimprove
 # Initialize the application
 app = mimprove.create_app()
         
-class mimproveTestCase(unittest.TestCase):
+class mimproveQuizTestCase(unittest.TestCase):
     
     def setUp(self):
         app.testing = True
