@@ -42,7 +42,7 @@ class mimproveTestCase(unittest.TestCase):
         # assert the status code of the response
         self.assertEqual(result.status_code, 200)
 
-    def test_quiz(self):
+    def test_quiz_response_status(self):
         """Testing the fetching of quiz questions for a particular user"""
         with app.app_context():
             
@@ -53,12 +53,33 @@ class mimproveTestCase(unittest.TestCase):
             #check if a valid response
             assert rv.status_code == 200
 
+    def test_quiz_length(self):
+        """Testing the fetching of quiz questions for a particular user"""
+        with app.app_context():
+            
+            username = 'test_patient'
+            #fetch the quiz
+            rv = self.get_quiz(username)
+
             #load the response data
             resp = json.loads(rv.data)
 
             resp_quiz = resp['quiz']
             #check the number of questions
             assert len(resp_quiz) == 10
+
+    def test_quiz_verify_list(self):
+        """Testing the fetching of quiz questions for a particular user"""
+        with app.app_context():
+            
+            username = 'test_patient'
+            #fetch the quiz
+            rv = self.get_quiz(username)
+
+            #load the response data
+            resp = json.loads(rv.data)
+
+            resp_quiz = resp['quiz']
 
             #check if the quiz is a list
             assert isinstance(resp_quiz,list)
@@ -70,6 +91,27 @@ class mimproveTestCase(unittest.TestCase):
                 assert 'incorrect_answer1' in question
                 assert 'incorrect_answer2' in question
                 assert 'incorrect_answer3' in question
+
+    def test_quiz_verify_questions_keys(self):
+        """Testing the fetching of quiz questions for a particular user"""
+        with app.app_context():
+            
+            username = 'test_patient'
+            #fetch the quiz
+            rv = self.get_quiz(username)
+
+            #load the response data
+            resp = json.loads(rv.data)
+
+            resp_quiz = resp['quiz']
+
+            #check for keys
+            for question in resp_quiz:
+                assert 'text' in question
+                assert 'correct_answer' in question
+                assert 'incorrect_answer1' in question
+                assert 'incorrect_answer2' in question
+                assert 'incorrect_answer3' in question    
              
 if __name__ == '__main__':
     unittest.main()
