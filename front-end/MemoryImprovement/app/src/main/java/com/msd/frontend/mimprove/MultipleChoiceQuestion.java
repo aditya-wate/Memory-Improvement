@@ -1,51 +1,101 @@
 package com.msd.frontend.mimprove;
 
+
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Created by Kiran on 3/23/2016.
  */
-public class MultipleChoiceQuestion extends Question {
-    private Set<String> correctAnswers;
-    private Set<String> inCorrectAnswers;
-    private Set<String> usersAnswer;
+public class MultipleChoiceQuestion extends QuestionKP {
 
+	private String userAnswer;
+  private String correct_answer;
+  private String incorrect_answer_1;
+  private String incorrect_answer_2;
+  private String incorrect_answer_3;
+	
+//    private Set<String> correctAnswers;
+//    private Set<String> inCorrectAnswers;
+//    private Set<String> usersAnswer;
 
-    public MultipleChoiceQuestion(String questionText) {
-        super(questionText);//
-        this.correctAnswers = new HashSet<String>();
-        this.inCorrectAnswers = new HashSet<String>();
-        this.usersAnswer = new HashSet<String>();
+  public MultipleChoiceQuestion(){}
+  
+    public MultipleChoiceQuestion(int id,String questionText) {
+        super(id,questionText);//
+//        this.correctAnswers = new HashSet<String>();
+//        this.inCorrectAnswers = new HashSet<String>();
+//        this.usersAnswer = new HashSet<String>();
     }
 
-    public Set<String> getCorrectAnswers() {
-        return correctAnswers;
-    }
 
-    public Set<String> getInCorrectAnswers() {
-        return inCorrectAnswers;
-    }
 
-    public Set<String> getUsersAnswer() {
-        return usersAnswer;
-    }
+    public String getUserAnswer() {
+		return userAnswer;
+	}
 
-//    public void addAnswer(HashSet<String>){
-//
-//    }public void addAnswer(HashSet<String>){
-//
-//    }
 
-    public void setCorrectAnswers(String answer) {
-        this.correctAnswers.add(answer);
-    }
 
-    public void setInCorrectAnswers(String answer) {
-        this.inCorrectAnswers.add(answer);
-    }
+	public void setUserAnswer(String userAnswer) {
+		this.userAnswer = userAnswer;
+	}
 
-    public void setUsersAnswer(String usersAnswer) {
-        this.usersAnswer.add(usersAnswer);
-    }
+
+
+	public String getCorrect_answer() {
+		return correct_answer;
+	}
+
+
+
+	public void setCorrect_answer(String correct_answer_temp) {
+		this.correct_answer = correct_answer_temp;
+	}
+
+
+
+	public String getIncorrect_answer_1() {
+		return incorrect_answer_1;
+	}
+
+
+
+	public void setIncorrect_answer_1(String incorrect_answer_1) {
+		this.incorrect_answer_1 = incorrect_answer_1;
+	}
+
+
+
+	public String getIncorrect_answer_2() {
+		return incorrect_answer_2;
+	}
+
+
+
+	public void setIncorrect_answer_2(String incorrect_answer_2) {
+		this.incorrect_answer_2 = incorrect_answer_2;
+	}
+
+
+
+	public String getIncorrect_answer_3() {
+		return incorrect_answer_3;
+	}
+
+
+
+	public void setIncorrect_answer_3(String incorrect_answer_3) {
+		this.incorrect_answer_3 = incorrect_answer_3;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return super.toString()+"MultipleChoiceQuestion [userAnswer=" + userAnswer + ", correct_answer=" + correct_answer
+				+ ", incorrect_answer_1=" + incorrect_answer_1 + ", incorrect_answer_2=" + incorrect_answer_2
+				+ ", incorrect_answer_3=" + incorrect_answer_3 + "]";
+	}
+
+
 }
