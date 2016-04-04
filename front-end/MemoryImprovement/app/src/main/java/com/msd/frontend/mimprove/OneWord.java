@@ -3,12 +3,14 @@ package com.msd.frontend.mimprove;
 /**
  * Created by Kiran on 3/23/2016.
  */
-public class OneWord extends Question {
+public class OneWord extends QuestionKP {
     private String correctAnswer;
     private String userAnswer;
+    
+    public OneWord(){}
 
-    public OneWord(String questionText) {
-        super(questionText);
+    public OneWord(int id, String questionText) {
+        super(id, questionText);
     }
 
     public void setCorrectAnswer(String correctAnswer) {
