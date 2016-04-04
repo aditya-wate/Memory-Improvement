@@ -1,4 +1,4 @@
-package com.msd.frontend.mimprove.fragment;
+package com.msd.frontend.mimprove.design;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

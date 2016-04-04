@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 
-import com.example.kiran.msdapp1.QuestionKP;
-import com.example.kiran.msdapp1.fragment.QuestionFragment;
+import com.msd.frontend.mimprove.QuestionKP;
+import com.msd.frontend.mimprove.fragment.QuestionFragment;
 
 import java.util.ArrayList;
 
