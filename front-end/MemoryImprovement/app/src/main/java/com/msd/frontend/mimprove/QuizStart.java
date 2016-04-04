@@ -11,10 +11,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.kiran.msdapp1.adapter.QuestionsAdapter;
-import com.example.kiran.msdapp1.design.SwipeDisabledViewPager;
-import com.example.kiran.msdapp1.interfaces.QuestionsInterfaces;
-import com.example.kiran.msdapp1.sdutils.SdUtils;
+//import com.example.kiran.msdapp1.adapter.QuestionsAdapter;
+//import com.example.kiran.msdapp1.design.SwipeDisabledViewPager;
+//import com.example.kiran.msdapp1.interfaces.QuestionsInterfaces;
+//import com.example.kiran.msdapp1.sdutils.SdUtils;
+
+import com.msd.frontend.mimprove.adapter.QuestionsAdapter;
+import com.msd.frontend.mimprove.interfaces.QuestionsInterfaces;
+import com.msd.frontend.mimprove.SdUtils;
+import com.msd.frontend.mimprove.design.SwipeDisabledViewPager;
 
 import org.json.simple.parser.ParseException;
 
