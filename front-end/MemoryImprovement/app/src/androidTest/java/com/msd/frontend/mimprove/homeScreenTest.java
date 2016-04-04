@@ -20,27 +20,27 @@ public class homeScreenTest extends ActivityInstrumentationTestCase2<HomeScreen>
     @SmallTest
     public void testButton1()
     {
-        Button bt = (Button) getActivity().findViewById(R.id.button);
+        Button bt = (Button) getActivity().findViewById(R.id.angry_bt);
         assertNotNull(bt);
 
     }
 
     public void testButton2()
     {
-        Button bt = (Button) getActivity().findViewById(R.id.button2);
+        Button bt = (Button) getActivity().findViewById(R.id.angry_b);
         assertNotNull(bt);
 
     }
 
     public void testButton3()
     {
-        Button bt = (Button) getActivity().findViewById(R.id.button3);
+        Button bt = (Button) getActivity().findViewById(R.id.angry_btn);
         assertNotNull(bt);
 
     }
     public void testButton4()
     {
-        Button bt = (Button) getActivity().findViewById(R.id.button4);
+        Button bt = (Button) getActivity().findViewById(R.id.angryb);
         assertNotNull(bt);
 
     }
