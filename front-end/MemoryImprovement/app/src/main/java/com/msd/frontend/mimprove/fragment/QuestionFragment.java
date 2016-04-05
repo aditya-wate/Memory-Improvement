@@ -16,10 +16,15 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.kiran.msdapp1.MultipleChoiceQuestion;
-import com.example.kiran.msdapp1.OneWord;
-import com.example.kiran.msdapp1.R;
-import com.example.kiran.msdapp1.interfaces.QuestionsInterfaces;
+//import com.example.kiran.msdapp1.MultipleChoiceQuestion;
+//import com.example.kiran.msdapp1.OneWord;
+//import com.example.kiran.msdapp1.R;
+//import com.example.kiran.msdapp1.interfaces.QuestionsInterfaces;
+
+import com.msd.frontend.mimprove.MultipleChoiceQuestion;
+import com.msd.frontend.mimprove.OneWord;
+import com.msd.frontend.mimprove.R;
+import com.msd.frontend.mimprove.interfaces.QuestionsInterfaces;
 
 import java.util.ArrayList;
 
