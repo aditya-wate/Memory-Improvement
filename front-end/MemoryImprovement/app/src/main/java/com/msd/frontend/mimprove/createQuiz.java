@@ -29,7 +29,8 @@ public class createQuiz
 
 	public static ArrayList<QuestionKP> randomQuestionList = new ArrayList<>();
 
-	public static UserQuiz getRandomisedQuiz(Context context) throws IOException, ParseException {
+	public static UserQuiz getRandomisedQuiz(Context context) throws IOException, ParseException
+	{
 //	   FileReader reader = new FileReader(QuizStart.this.getCacheDir()+"/quizJson.json");
 //	   FileReader reader = new FileReader(UserQuiz.getCacheDir()+"/quizJson.json");
 
@@ -94,7 +95,7 @@ public class createQuiz
 			linkList.remove(number);
 			if(number % 2 == 0)
 				randomQuestionList.add(randomQuestion);
-//			else
+			else
 			createOneWordQuestion(randomQuestion);
 		}
 //		return randomQuestionList;
