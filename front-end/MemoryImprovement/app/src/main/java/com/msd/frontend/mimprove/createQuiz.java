@@ -29,24 +29,24 @@ public class createQuiz
 
 	public static ArrayList<QuestionKP> randomQuestionList = new ArrayList<>();
 
-   public static UserQuiz getRandomisedQuiz(Context context) throws IOException, ParseException {
+	public static UserQuiz getRandomisedQuiz(Context context) throws IOException, ParseException {
 //	   FileReader reader = new FileReader(QuizStart.this.getCacheDir()+"/quizJson.json");
 //	   FileReader reader = new FileReader(UserQuiz.getCacheDir()+"/quizJson.json");
 
-	   FileReader reader = new FileReader(context.getCacheDir()+"/quizJson.json");
-	   JSONObject jsonObject = (JSONObject) new JSONParser().parse(reader);
-	   UserQuiz userQuiz = new UserQuiz();
-	   String userName = (String) jsonObject.get("username");
+		FileReader reader = new FileReader(context.getCacheDir()+"/quizJson.json");
+		JSONObject jsonObject = (JSONObject) new JSONParser().parse(reader);
+		UserQuiz userQuiz = new UserQuiz();
+		String userName = (String) jsonObject.get("username");
 
-	   String quiz = jsonObject.get("quiz").toString();
+		String quiz = jsonObject.get("quiz").toString();
 //	   System.out.println("Quiz:" + quiz);
-	   userQuiz.setUserName(userName);
+		userQuiz.setUserName(userName);
 
 
-	   Gson gson = new Gson();
-	   List<MultipleChoiceQuestion> questionList;
-	   questionList = gson.fromJson(quiz, new TypeToken<List<MultipleChoiceQuestion>>() {
-	   }.getType());
+		Gson gson = new Gson();
+		List<MultipleChoiceQuestion> questionList;
+		questionList = gson.fromJson(quiz, new TypeToken<List<MultipleChoiceQuestion>>() {
+		}.getType());
 //	   int i=1;
 //	   for(MultipleChoiceQuestion question:questionList){
 //		   System.out.println("Iteration: "+i++);
@@ -57,14 +57,14 @@ public class createQuiz
 //	   System.out.println("Before Random : " + questionList);
 
 //	   List<QuestionKP> questions = randomize(questionList);
-	   randomize(questionList);
-	   userQuiz.setQuestionList(randomQuestionList);
-	   return userQuiz;
-   }
+		randomize(questionList);
+		userQuiz.setQuestionList(randomQuestionList);
+		return userQuiz;
+	}
 //	   MultipleChoiceQuestion mcq = new MultipleChoiceQuestion();
 //	   OneWord oneWord = new OneWord();
 //	   System.out.println("For loop");
-	   
+
 //	   for(QuestionKP question: questions){
 //		   if(question.getClass().isInstance(mcq)){
 ////			   mcq = (MultipleChoiceQuestion) question;
@@ -76,14 +76,14 @@ public class createQuiz
 ////			   System.out.println(question);
 //		   }
 //	   }
-	   
+
 //	   System.out.println("After Random : " + questions);
-	  
+
 //	   System.out.println(quiz);
 
-   
-   
-   private static void randomize(List<MultipleChoiceQuestion> questionsArray)
+
+
+	private static void randomize(List<MultipleChoiceQuestion> questionsArray)
 	{
 		LinkedList<MultipleChoiceQuestion> linkList = new LinkedList<>();
 		linkList.addAll(questionsArray);
@@ -95,11 +95,11 @@ public class createQuiz
 			if(number % 2 == 0)
 				randomQuestionList.add(randomQuestion);
 //			else
-				createOneWordQuestion(randomQuestion);
+			createOneWordQuestion(randomQuestion);
 		}
 //		return randomQuestionList;
 	}
-   
+
 //   private static void createMultipleChoiceQuestion(QuestionKP question) {
 //		MultipleChoiceQuestion multi_choice_question = new MultipleChoiceQuestion(question.getQuestionText());
 //		multi_choice_question.setInCorrectAnswers(question.getIn_correctAnswer_1(), question.getIn_correctAnswer_2()
