@@ -1,92 +1,115 @@
 package com.msd.frontend.mimprove;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+/**
+ * Created by singlasaahil on 3/28/2016.
+ */
+
+
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Gallery;
-import android.widget.ImageView;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ViewFlipper;
 
-public class ViewPhotos extends AppCompatActivity {
+public class ViewPhotos extends Activity {
+
+    private static final int SWIPE_MIN_DISTANCE = 120;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+    private ViewFlipper mViewFlipper;
+    private AnimationListener mAnimationListener;
+    private Context mContext;
 
 
+    @SuppressWarnings("deprecation")
+    private final GestureDetector detector = new GestureDetector(new SwipeGestureDetector());
 
-    Integer[] pics = {
-            R.drawable.cert1,
-            R.drawable.cert2,
-            R.drawable.cert3,
-            R.drawable.cert4,
-            R.drawable.cert5
-    };
-    ImageView imageView;
-       @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_photos);
-           Gallery ga = (Gallery)findViewById(R.id.Gallery01);
-           ga.setAdapter(new ImageAdapter(this));
-   }
+        mContext = this;
+        mViewFlipper = (ViewFlipper) this.findViewById(R.id.view_flipper);
+        mViewFlipper.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(final View view, final MotionEvent event) {
+                detector.onTouchEvent(event);
+                return true;
+            }
+        });
 
-    public class ImageAdapter extends BaseAdapter {
 
-        private Context ctx;
-        int imageBackground;
+        findViewById(R.id.play).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //sets auto flipping
+                mViewFlipper.setAutoStart(true);
+                mViewFlipper.setFlipInterval(4000);
+                mViewFlipper.startFlipping();
+            }
+        });
 
-        public ImageAdapter(Context c) {
-            ctx = c;
-            TypedArray ta = obtainStyledAttributes(R.styleable.Gallery1);
-            imageBackground = ta.getResourceId(R.styleable.Gallery1_android_galleryItemBackground, 1);
-            ta.recycle();
-        }
+        findViewById(R.id.stop).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //stop auto flipping
+                mViewFlipper.stopFlipping();
+            }
+        });
 
-        @Override
-        public int getCount() {
 
-            return pics.length;
-        }
+        //animation listener
+        mAnimationListener = new Animation.AnimationListener() {
+            public void onAnimationStart(Animation animation) {
+                //animation started event
+            }
 
-        @Override
-        public Object getItem(int arg0) {
+            public void onAnimationRepeat(Animation animation) {
+            }
 
-            return arg0;
-        }
-
-        @Override
-        public long getItemId(int arg0) {
-
-            return arg0;
-        }
-
-        @Override
-        public View getView(int arg0, View arg1, ViewGroup arg2) {
-            ImageView iv = new ImageView(ctx);
-            iv.setImageResource(pics[arg0]);
-            iv.setScaleType(ImageView.ScaleType.FIT_XY);
-            //iv.setLayoutParams(new Gallery.LayoutParams(750,1020));
-            iv.setBackgroundResource(imageBackground);
-            return iv;
-        }
-
-    }
+            public void onAnimationEnd(Animation animation) {
+                //TODO animation stopped event
+            }
+        };
     }
 
 
+    class SwipeGestureDetector extends SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            try {
+                // right to left swipe
+                if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim.left_in));
+                    mViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(mContext, R.anim.left_out));
+                    // controlling animation
+                    mViewFlipper.getInAnimation().setAnimationListener(mAnimationListener);
+                    mViewFlipper.showNext();
+                    return true;
+                } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                    mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim.right_in));
+                    mViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(mContext,R.anim.right_out));
+                    // controlling animation
+                    mViewFlipper.getInAnimation().setAnimationListener(mAnimationListener);
+                    mViewFlipper.showPrevious();
+                    return true;
+                }
 
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-
-
-
-
-
-
-
-
-
-
+            return false;
+        }
+    }
+}
 
 

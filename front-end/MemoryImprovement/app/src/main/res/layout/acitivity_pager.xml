@@ -1,37 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.v4.view.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.8"
-        android:id="@+id/questions_adapter">
 
-    </android.support.v4.view.ViewPager>
-    <TableRow
-        android:layout_height="0dip"
+    <com.msd.frontend.mimprove.design.SwipeDisabledViewPager
         android:layout_width="match_parent"
-        android:layout_weight="0.1"
-        android:layout_gravity="center_horizontal">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/prev"
-            android:text="Previous"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/next"
-            android:layout_gravity="right"
-            android:text="Next"/>
-    </TableRow>
+        android:layout_height="match_parent"
+        android:id="@+id/questions_adapter">
+    </com.msd.frontend.mimprove.design.SwipeDisabledViewPager>
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:layout_width="30dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/prev"
+        android:src="@drawable/ic_chevron_left_black_48dp"
+        android:background="@android:color/transparent"
+        android:layout_gravity="left|center_vertical"
+        android:text="Previous"/>
+    <android.support.v7.widget.AppCompatImageButton
+        android:layout_width="30dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/next"
+        android:layout_gravity="right|center_vertical"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_chevron_right_black_48dp"
+        android:text="Next"/>
+    <android.support.v7.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/submit_answers"
+        android:layout_gravity="center|bottom"
+        android:visibility="gone"
+        android:layout_marginBottom="10dip"
+        android:text="@string/submit"/>
+
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="0dip"
-        android:layout_weight="0.1"
+        android:layout_height="wrap_content"
         android:text="0 of 0"
-        android:layout_gravity="right"
+        android:layout_marginRight="10dip"
+        android:layout_marginBottom="10dip"
+        android:layout_gravity="right|bottom"
         android:id="@+id/page_number"/>
 
-</LinearLayout>
+</FrameLayout>

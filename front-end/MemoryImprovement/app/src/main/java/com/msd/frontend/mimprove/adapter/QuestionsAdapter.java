@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.msd.frontend.mimprove.Question;
+
+import com.msd.frontend.mimprove.QuestionKP;
 import com.msd.frontend.mimprove.fragment.QuestionFragment;
 
 import java.util.ArrayList;
@@ -15,8 +16,8 @@ import java.util.ArrayList;
  */
 public class QuestionsAdapter extends FragmentStatePagerAdapter
 {
-    private ArrayList<Question> questions = new ArrayList<>();
-    public QuestionsAdapter(ArrayList<Question> questionsToBeShown,FragmentManager fm)
+    private ArrayList<QuestionKP> questions = new ArrayList<>();
+    public QuestionsAdapter(ArrayList<QuestionKP> questionsToBeShown,FragmentManager fm)
     {
         super(fm);
         this.questions = questionsToBeShown;

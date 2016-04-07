@@ -30,7 +30,7 @@ public class LogInActivity extends AppCompatActivity {
                 if ((email.getText().toString().equals("admin@gmail.com"))) {
 
                     Intent intent = new Intent();
-                    intent.setClass(getApplicationContext(), HomeScreenActivity.class);
+                    intent.setClass(getApplicationContext(), HomeScreen.class);
 
                     startActivity(intent);
 
