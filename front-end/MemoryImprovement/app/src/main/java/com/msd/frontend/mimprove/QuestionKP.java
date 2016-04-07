@@ -19,6 +19,12 @@ public class QuestionKP {
     public QuestionKP(){
 
     }
+
+    public QuestionKP(String questionText){
+        this.text = questionText;
+    }
+
+
     public QuestionKP(int id, String questionText){
         this.question_id = id;
         this.text = questionText;
