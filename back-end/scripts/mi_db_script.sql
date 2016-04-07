@@ -9,7 +9,8 @@ DROP TABLE IF EXISTS user,
 					patient, 
 					guardian, 
                     quiz, 
-                    question;
+                    question,
+                    personal_info;
 
 -- Category tables to be deleted
 DROP TABLE IF EXISTS category_city, 
@@ -32,7 +33,8 @@ DROP TABLE IF EXISTS category_city,
                     category_color,
                     category_number,
                     category_month,
-                    category_movie;
+                    category_movie,
+                    category_phone;
 
 /*!50503 set default_storage_engine = InnoDB */;
 /*!50503 select CONCAT('storage engine: ', @@default_storage_engine) as INFO */;
@@ -77,12 +79,19 @@ CREATE TABLE quiz (
 
 CREATE TABLE question (
   question_id INT(11) NOT NULL AUTO_INCREMENT,
-  category CHAR(30) NOT NULL,
-  question_string CHAR(50) NOT NULL,
+  category CHAR(35) NOT NULL,
+  question_string CHAR(100) NOT NULL,
   answer CHAR(30) NOT NULL,
   patient_id INT(11) NOT NULL,
   FOREIGN KEY (patient_id) REFERENCES patient (patient_id) ON DELETE CASCADE,
   PRIMARY KEY (question_id)
+);
+
+CREATE TABLE personal_info (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  category CHAR(35) NOT NULL,
+  question_string CHAR(100) NOT NULL,
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE images (
@@ -215,6 +224,12 @@ CREATE TABLE category_month (
 );
 
 CREATE TABLE category_movie (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  c_name char(35) NOT NULL DEFAULT '',
+  PRIMARY KEY (id)	
+);
+
+CREATE TABLE category_phone (
   id int(11) NOT NULL AUTO_INCREMENT,
   c_name char(35) NOT NULL DEFAULT '',
   PRIMARY KEY (id)	
@@ -354,6 +369,11 @@ INSERT INTO category_movie VALUES (3, "Scarface");
 INSERT INTO category_movie VALUES (4, "Ghostbusters");
 INSERT INTO category_movie VALUES (5, "Shawshank Redemption");
 
+INSERT INTO category_phone VALUES (1, "Android");
+INSERT INTO category_phone VALUES (2, "iPhone");
+INSERT INTO category_phone VALUES (3, "Windows Phone");
+INSERT INTO category_phone VALUES (4, "Blackberry");
+
 -- Insertion of test data 'test_password'
 INSERT INTO user VALUES (1, 
 						'test_patient', 
@@ -430,8 +450,59 @@ INSERT INTO question VALUES(9,
                             
 INSERT INTO question VALUES(10, 
 							'category_animals',
-                            'Which pet do you have',
+                            'Which pet do you have?',
                             'Hamster',
                             1);                            
 
+INSERT INTO personal_info VALUES(1, 
+							'category_color',
+                            'What is your favorite colour ?');
+                            
+INSERT INTO personal_info VALUES(2, 
+							'category_city',
+                            'Which is your favorite holiday destination?');
+                            
+INSERT INTO personal_info VALUES(3, 
+							'category_people_female',
+                            'What is your mother\'s maiden name?');
+                            
+INSERT INTO personal_info VALUES(4, 
+							'category_number',
+                            'What are the last two digits of your cellphone number?');
+                            
+INSERT INTO personal_info VALUES(5, 
+							'category_city',
+                            'In which city were your born?');
+                            
+INSERT INTO personal_info VALUES(6, 
+							'category_month',
+                            'Which month of the year is your birthday?');
+                            
+INSERT INTO personal_info VALUES(7, 
+							'category_celebrities',
+                            'Who is your favorite celebrity?');
+                            
+INSERT INTO personal_info VALUES(8, 
+							'category_movie',
+                            'Which is your favorite movie?');
+                            
+INSERT INTO personal_info VALUES(9, 
+							'category_sports',
+                            'Which sport do you like the most?');
+                            
+INSERT INTO personal_info VALUES(10, 
+							'category_animals',
+                            'Which pet do you have?');
+                            
+INSERT INTO personal_info VALUES(11, 
+							'category_phone',
+                            'Which smartphone do you use?');
+
+INSERT INTO personal_info VALUES(12, 
+							'category_food',
+                            'What is your favorite food?');
+                            
+INSERT INTO personal_info VALUES(13, 
+							'category_celebrities',
+                            'Who is your role model?');
 COMMIT;
