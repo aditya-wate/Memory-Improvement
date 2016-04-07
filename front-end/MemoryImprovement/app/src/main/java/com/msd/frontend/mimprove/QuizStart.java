@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.msd.frontend.mimprove.adapter.QuestionsAdapter;
 import com.msd.frontend.mimprove.interfaces.QuestionsInterfaces;
-import com.msd.frontend.mimprove.SdUtils;
+import com.msd.frontend.mimprove.sdutils.*;
 import com.msd.frontend.mimprove.design.SwipeDisabledViewPager;
 
 import org.json.simple.parser.ParseException;
@@ -41,7 +41,15 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
         init();
         try
         {
-            populateData();
+            if(getIntent().getBooleanExtra("isInputQuestion",false))
+            {
+                populateInputQuestionData();
+            }
+            else
+            {
+                populateData();
+            }
+
         }catch (ParseException e1)
         {
             return;
@@ -127,10 +135,7 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
 //                        }
 
 
-
                         //redirect to home page
-
-
 
 
                     }
@@ -183,12 +188,32 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
     }
 
 
-    private void populateData() throws IOException, ParseException {
+    private void populateData() throws IOException, ParseException
+    {
         SdUtils.copyJsonToSdCard(QuizStart.this);
         UserQuiz quiz = createQuiz.getRandomisedQuiz(QuizStart.this);
         final ArrayList<QuestionKP> questions = quiz.getQuestionList();
+        android.util.Log.e("Questions received",""+questions.size());
         questionList.clear();
         questionList.addAll(questions);
+        android.util.Log.e("Questions added",""+questionList.size());
+//        corrctAnswers.clear();
+        corrected.clear();
+        pageNo.setText("1 of "+questionList.size());
+        QuestionsAdapter questionsAdapter = new QuestionsAdapter(questions,getSupportFragmentManager());
+        pager.setAdapter(questionsAdapter);
+        pager.setCurrentItem(0);
+    }
+
+    private void populateInputQuestionData() throws IOException, ParseException
+    {
+        SdUtils.copyJsonToSdCard(QuizStart.this);
+
+        final ArrayList<QuestionKP> questions = createQuiz.getQuiz_Input(QuizStart.this);
+        android.util.Log.e("Questions received",""+questions.size());
+        questionList.clear();
+        questionList.addAll(questions);
+        android.util.Log.e("Questions added",""+questionList.size());
 //        corrctAnswers.clear();
         corrected.clear();
         pageNo.setText("1 of "+questionList.size());

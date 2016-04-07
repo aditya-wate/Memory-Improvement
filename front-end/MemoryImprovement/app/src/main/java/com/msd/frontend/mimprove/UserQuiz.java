@@ -19,6 +19,7 @@ public class UserQuiz {
 		this.username = username;
 	}
     public void setQuestionList(ArrayList<QuestionKP> questionList) {
+		this.questionList.clear();
 		this.questionList.addAll(questionList);
 	}
 

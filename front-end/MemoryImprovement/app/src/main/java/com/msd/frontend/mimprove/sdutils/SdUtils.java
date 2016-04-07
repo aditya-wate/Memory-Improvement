@@ -1,4 +1,4 @@
-package com.msd.frontend.mimprove;
+package com.msd.frontend.mimprove.sdutils;
 
 import android.content.Context;
 import android.os.Environment;
@@ -31,22 +31,27 @@ public class SdUtils
 
 
 
-        String fileName = "quizJson.json";
+        String fileNames[] = {"quizJson.json","input.json"};
         try
         {
-            InputStream myInput = context.getAssets().open(fileName);
-            android.util.Log.e("Received file",fileName);
-            String outFileName = context.getCacheDir() + "/" + fileName;
-            OutputStream myOutput = new FileOutputStream(outFileName);
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = myInput.read(buffer)) > 0) {
-                myOutput.write(buffer, 0, length);
+            for(String file:fileNames)
+            {
+
+                InputStream myInput = context.getAssets().open(file);
+                android.util.Log.e("Received file",file);
+                String outFileName = context.getCacheDir() + "/" + file;
+                OutputStream myOutput = new FileOutputStream(outFileName);
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = myInput.read(buffer)) > 0) {
+                    myOutput.write(buffer, 0, length);
+                }
+
+                myOutput.flush();
+                myOutput.close();
+                myInput.close();
             }
 
-            myOutput.flush();
-            myOutput.close();
-            myInput.close();
         }catch (Exception e)
         {
             return;

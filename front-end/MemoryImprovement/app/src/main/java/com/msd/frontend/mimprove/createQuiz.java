@@ -83,11 +83,49 @@ public class createQuiz
 //	   System.out.println(quiz);
 
 
+	public static ArrayList<QuestionKP> getQuiz_Input(Context context) throws IOException, ParseException
+	{
+//
+
+		FileReader reader = new FileReader(context.getCacheDir()+"/input.json"); // fileName for questions JSON
+		JSONObject jsonObject = (JSONObject) new JSONParser().parse(reader);
+		UserQuiz userQuiz = new UserQuiz();
+		String userName = (String) jsonObject.get("username");
+
+		String quiz = jsonObject.get("quiz").toString();    // get questions
+//	   System.out.println("Quiz:" + quiz);
+//		userQuiz.setUserName(userName);
+
+
+		Gson gson = new Gson();
+		List<String> questionList;
+		questionList = gson.fromJson(quiz, new TypeToken<List<String>>() {
+		}.getType());
+
+		ArrayList<QuestionKP> questionObjects = createQuestions(questionList);
+
+
+//		userQuiz.setQuestionList(randomQuestionList);
+		return questionObjects;
+	}
+
+	private static ArrayList<QuestionKP> createQuestions(List<String> questionList) {
+		ArrayList<QuestionKP> questionObjectList = new ArrayList<>();
+
+     for(String questionText:questionList){
+		 QuestionKP temp = new QuestionKP(questionText);
+		 questionObjectList.add(temp);
+     }
+
+		return questionObjectList;
+	}
+
 
 	private static void randomize(List<MultipleChoiceQuestion> questionsArray)
 	{
 		LinkedList<MultipleChoiceQuestion> linkList = new LinkedList<>();
 		linkList.addAll(questionsArray);
+		randomQuestionList.clear();
 		while(linkList.size()>0)
 		{
 			int number = (int)Math.floor(Math.random()*linkList.size());

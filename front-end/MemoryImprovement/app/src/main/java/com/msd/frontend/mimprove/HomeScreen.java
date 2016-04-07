@@ -17,4 +17,19 @@ public class HomeScreen extends AppCompatActivity {
         Intent intent = new Intent(HomeScreen.this,ViewPhotos.class);
         startActivity(intent);
     }
+    public void TakeQuiz(View view)
+    {
+        Intent intent = new Intent(HomeScreen.this,QuizStart.class);
+        startActivity(intent);
+    }
+    public void InputQuiz(View view)
+    {
+        Intent intent = new Intent(HomeScreen.this,QuizStart.class);
+        intent.putExtra("isInputQuestion",true);
+        startActivity(intent);
+    }
+
+
+
+
 }
