@@ -3,6 +3,7 @@ import json, os
 from flask import request, abort, jsonify, current_app
 import MySQLdb as mdb
 from mimprove.views import *
+from datetime import datetime
 
 quiz_view = flask.Blueprint('quiz', __name__)
 
@@ -21,7 +22,7 @@ def get_quiz():
     Errors:
 
     This method is allowed to all the user who has requested the quiz.
-    Otherwise, return an HTTP 500 error.
+    Otherwise, return an HTTP 400 error.
 
     """
     con = mdb.connect(host=MYSQL_HOST, port=MYSQL_PORT,user=MYSQL_USER, passwd=MYSQL_PASSWD, db=MYSQL_DB)
@@ -61,5 +62,76 @@ def get_quiz():
                 quiz.append(question)
             resp['quiz'] = quiz
             return jsonify(resp)
+        else:
+            return ('User not found', 204)
+
+@quiz_view.route('/save_quiz', methods=['POST'])
+def save_quiz():
+    """
+    This service takes the json from the request and saves the questions in the database
+    for the user to view the history.
+    
+    Return success if request is executed successfully
+
+    URL: /quiz/save_quiz
+    POST parameters:
+
+    - username: the user for which the questions are to be fetched
+
+    The response is a json dictionary which contains the questions with the possible and the correct answers.
+
+    Errors:
+
+    This method is allowed to all the user who has requested the quiz.
+    Otherwise, return an HTTP 400 error.
+
+    """
+
+    con = mdb.connect(host='127.0.0.1', port=server.local_bind_port,user='root', passwd='wstwbh57', db='memory_improve')
+    with con:
+        content = request.json
+        username = content['username']
+        if username == "":
+            abort(400)
+
+        cur = con.cursor()
+        
+        stmt_patient = "SELECT p.patient_id FROM patient p, user u\
+                WHERE p.user_id = u.user_id and u.username = %s"
+
+        row_count = cur.execute(stmt_patient,[username])
+        
+        if row_count > 0:
+            resp = dict()
+            resp['username'] = username
+            
+            #getting parameters required for insert in quiz table
+            #get patient_id
+            patient_id = cur.fetchone()[0]
+            
+            #get score form the request
+            score = content['score']
+            
+            #get current date-time
+            now = datetime.now()
+            start_date = now.strftime('%Y-%m-%d %H:%M:%S')
+            
+            #get quiz
+            #quiz = dict()
+            quiz=str(content['quiz'])
+            #quiz_string = str(quiz)
+            
+            cur = con.cursor()
+
+            stmt_insert_quiz = "INSERT INTO quiz (score,patient_id,start_date,state) VALUES (%s,%s,%s,%s)"
+
+            row_count = cur.execute(stmt_insert_quiz,(score,patient_id,start_date,quiz))
+
+            if row_count == 1:
+                resp['result'] = 'save_successful'
+                return jsonify(resp)
+            else:
+                resp['result'] = 'save_failure'
+                return jsonify(resp)
         else:
             return ('User not found', 204)
