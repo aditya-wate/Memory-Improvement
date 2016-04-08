@@ -72,7 +72,7 @@ CREATE TABLE quiz (
   score INT NOT NULL CHECK(score <= 100),
   patient_id INT(11) NOT NULL,
   start_date DATE NOT NULL,
-  end_date DATE NOT NULL,
+  state NVARCHAR(65535),
   FOREIGN KEY (patient_id) REFERENCES patient (patient_id) ON DELETE CASCADE,
   PRIMARY KEY (quiz_id)
 );
