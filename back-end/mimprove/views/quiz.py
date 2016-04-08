@@ -87,7 +87,7 @@ def save_quiz():
 
     """
 
-    con = mdb.connect(host='127.0.0.1', port=server.local_bind_port,user='root', passwd='wstwbh57', db='memory_improve')
+    con = mdb.connect(host=MYSQL_HOST, port=MYSQL_PORT,user=MYSQL_USER, passwd=MYSQL_PASSWD, db=MYSQL_DB)
     with con:
         content = request.json
         username = content['username']

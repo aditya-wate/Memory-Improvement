@@ -152,7 +152,7 @@ class mimproveSaveQuizTestCase(unittest.TestCase):
     def test_quiz_response_status(self):
         """Testing the saving of quiz score for a particular user, response check"""
         with app.app_context():
-            with open(os.path.join('tests/files', 'save_quiz' + '.json'),'r') as rf:
+            with open(os.path.join('back-end/tests/files', 'save_quiz' + '.json'),'r') as rf:
                 req = json.load(rf)
                 
             #call save quiz
@@ -164,7 +164,7 @@ class mimproveSaveQuizTestCase(unittest.TestCase):
     def test_quiz_response(self):
         """Testing the saving of quiz score for a particular user, response check"""
         with app.app_context():
-            with open(os.path.join('tests/files', 'save_quiz' + '.json'),'r') as rf:
+            with open(os.path.join('back-end/tests/files', 'save_quiz' + '.json'),'r') as rf:
                 req = json.load(rf)
             
             #call save quiz
@@ -180,14 +180,14 @@ class mimproveSaveQuizTestCase(unittest.TestCase):
     def test_quiz_length(self):
         """Testing the saving of quiz for a particular user, length check"""
         with app.app_context():
-            with open(os.path.join('tests/files', 'save_quiz' + '.json'),'r') as rf:
+            with open(os.path.join('back-end/tests/files', 'save_quiz' + '.json'),'r') as rf:
                 req = json.load(rf)
             assert len(req['quiz']) == 10
 
     def test_quiz_verify_list(self):
         """Testing the fetching of quiz questions for a particular user, list verification"""
         with app.app_context():
-            with open(os.path.join('tests/files', 'save_quiz' + '.json'),'r') as rf:
+            with open(os.path.join('back-end/tests/files', 'save_quiz' + '.json'),'r') as rf:
                 req = json.load(rf)
             #check if the quiz is a list
             assert isinstance(req['quiz'],list)
@@ -196,7 +196,7 @@ class mimproveSaveQuizTestCase(unittest.TestCase):
     def test_quiz_verify_questions_keys(self):
         """Testing the fetching of quiz questions for a particular user, verify keys"""
         with app.app_context():            
-            with open(os.path.join('tests/files', 'save_quiz' + '.json'),'r') as rf:
+            with open(os.path.join('back-end/tests/files', 'save_quiz' + '.json'),'r') as rf:
                 req = json.load(rf)
             #check for keys
             for question in req['quiz']:
@@ -207,7 +207,7 @@ class mimproveSaveQuizTestCase(unittest.TestCase):
     def test_null_user(self):
         """Testing the fetching of quiz questions for a blank username"""
         with app.app_context():
-            with open(os.path.join('tests/files', 'save_quiz_null_user' + '.json'),'r') as rf:
+            with open(os.path.join('back-end/tests/files', 'save_quiz_null_user' + '.json'),'r') as rf:
                 req_null = json.load(rf)
                 #call save quiz
                 rv = self.save_quiz(req_null)
@@ -218,7 +218,7 @@ class mimproveSaveQuizTestCase(unittest.TestCase):
     def test_invalid_user(self):
         """Testing the fetching of quiz questions for an invalid user"""
         with app.app_context():
-            with open(os.path.join('tests/files', 'save_quiz_invalid_user' + '.json'),'r') as rf:
+            with open(os.path.join('back-end/tests/files', 'save_quiz_invalid_user' + '.json'),'r') as rf:
                 req_null = json.load(rf)
                 #call save quiz
                 rv = self.save_quiz(req_null)
