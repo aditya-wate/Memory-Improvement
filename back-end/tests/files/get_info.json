@@ -1,0 +1,45 @@
+{
+  "info": [
+    {
+      "category":"category_celebrities",
+      "text": "Who is your favorite celebrity?"
+    },
+    {
+	  "category":"category_month",
+      "text": "Which month of the year is your birthday?"
+    },
+    {
+      "category":"category_color",
+      "text": "What is your favorite colour ?"
+    },
+    {
+      "category":"category_movie",
+      "text": "Which is your favorite movie?"
+    },
+    {
+      "category":"category_number",
+      "text": "What are the last two digits of your cellphone number?"
+    },
+    {
+      "category":"category_people_female",
+      "text": "What is your mother's maiden name?"
+    },
+    {
+      "category":"category_animals",
+      "text": "Which pet do you have"
+    },
+    {
+      "category":"category_city",
+      "text": "In which city were your born?"
+    },
+    {
+      "category":"category_city",
+      "text": "Which is your favorite holiday destination?"
+    },
+    {
+      "category":"category_sports",
+      "text": "Which sport do you like the most?"
+    }
+  ],
+  "username": "test_patient"
+}

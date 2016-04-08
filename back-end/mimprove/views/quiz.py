@@ -39,7 +39,7 @@ def get_quiz():
                                                      WHERE username = %s)) ORDER BY RAND() LIMIT 10;"""
         cur.execute(stmt,[username])
         question_rows = cur.fetchall()
-        resp['username'] = "test_patient"
+        resp['username'] = username
         for row in question_rows:
             question = dict()
             question['question_id'] = row[0]
