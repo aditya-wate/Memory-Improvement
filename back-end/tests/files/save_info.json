@@ -1,0 +1,55 @@
+{
+  "info": [
+    {
+	  "user_answer": "Bill Murray",
+      "category":"category_celebrities",
+      "text": "Who is your favorite celebrity?"
+    },
+    {
+	  "user_answer": "June",
+	  "category":"category_month",
+      "text": "Which month of the year is your birthday?"
+    },
+    {
+	  "user_answer": "Purple",
+      "category":"category_color",
+      "text": "What is your favorite colour ?"
+    },
+    {
+	  "user_answer": "Dog Day Afternoon",
+      "category":"category_movie",
+      "text": "Which is your favorite movie?"
+    },
+    {
+	  "user_answer": "23",
+      "category":"category_number",
+      "text": "What are the last two digits of your cellphone number?"
+    },
+    {
+	  "user_answer": "Marie",
+      "category":"category_people_female",
+      "text": "What is your mother's maiden name?"
+    },
+    {
+	  "user_answer": "Hamster",
+      "category":"category_animals",
+      "text": "Which pet do you have"
+    },
+    {
+	  "user_answer": "Los Angeles",
+      "category":"category_city",
+      "text": "In which city were your born?"
+    },
+    {
+	  "user_answer": "Venice",
+      "category":"category_city",
+      "text": "Which is your favorite holiday destination?"
+    },
+    {
+      "user_answer": "Cricket",
+	  "category":"category_sports",
+      "text": "Which sport do you like the most?"
+    }
+  ],
+  "username": "test_patient"
+}

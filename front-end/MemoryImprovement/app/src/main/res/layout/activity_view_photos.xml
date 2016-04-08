@@ -61,10 +61,41 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/image_3" />
 
+
                 <!-- <TextView
                      style="@style/ImageTitle"
                      android:text="@string/natural_wall" />-->
             </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+
+
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image_4" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image_5" />
+            </RelativeLayout>
+
         </ViewFlipper>
 
         <LinearLayout

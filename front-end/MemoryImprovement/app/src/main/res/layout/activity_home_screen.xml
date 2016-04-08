@@ -11,19 +11,19 @@
 
     <Button
         android:id="@+id/angry_btn"
-        android:text="Personal Information"
+        android:text="Input Quiz"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         android:layout_width="300dp"
         android:layout_height="75dp"
         android:background="@drawable/buttonshape"
-        android:shadowColor="#9168A8"
+        android:shadowColor="#695473"
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="5"
-
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="79dp" />
+        android:layout_marginTop="79dp"
+        android:onClick="InputQuiz"/>
     <Button
         android:id="@+id/angry_bt"
         android:text="Take Quiz"
@@ -39,7 +39,8 @@
         android:layout_below="@+id/angry_btn"
         android:layout_alignLeft="@+id/angry_btn"
         android:layout_alignStart="@+id/angry_btn"
-        android:onClick="TakeQuiz"/>
+        android:onClick="TakeQuiz"
+        />
 
     <Button
         android:id="@+id/angry_b"
@@ -55,7 +56,8 @@
         android:shadowRadius="5"
         android:layout_below="@+id/angry_bt"
         android:layout_alignLeft="@+id/angry_bt"
-        android:layout_alignStart="@+id/angry_bt" />
+        android:layout_alignStart="@+id/angry_bt"
+        android:onClick="OpenCalendar"/>
     <Button
         android:id="@+id/angryb"
         android:text="Gallery"
@@ -72,21 +74,21 @@
         android:layout_centerHorizontal="true"
         android:onClick="OpenGallery"/>
 
-    <Button
-        android:id="@+id/inputQuiz"
-        android:text="Input Quiz"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:background="@drawable/buttonshape5"
-        android:shadowColor="#695473"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:layout_below="@+id/angryb"
-        android:layout_centerHorizontal="true"
-        android:onClick="InputQuiz"/>
+    <!--<Button-->
+        <!--android:id="@+id/inputQuiz"-->
+        <!--android:text="Input Quiz"-->
+        <!--android:textColor="#FFFFFF"-->
+        <!--android:textSize="30sp"-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="75dp"-->
+        <!--android:background="@drawable/buttonshape5"-->
+        <!--android:shadowColor="#695473"-->
+        <!--android:shadowDx="0"-->
+        <!--android:shadowDy="0"-->
+        <!--android:shadowRadius="5"-->
+        <!--android:layout_below="@+id/angryb"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:onClick="InputQuiz"/>-->
 
 
 </RelativeLayout>

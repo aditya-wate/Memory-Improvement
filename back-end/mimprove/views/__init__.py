@@ -2,11 +2,10 @@ from flask.ext.login import LoginManager
 
 login_manager = LoginManager()
 
-class Permissions(object):
-    """
-    This class currently just serves as a namespace for permission names.
-    """
-    # allows viewing basic information of a report
-    PERMISSION_VIEW_REPORT = "view_report"
-    # allows viewing all information of a report
-    PERMISSION_VIEW_FULL_REPORT = "view_full_report"
+"""Constant to be used in views"""
+
+MYSQL_HOST = '127.0.0.1'
+MYSQL_USER = 'root'
+MYSQL_PASSWD = 'wstwbh57'
+MYSQL_DB = 'memory_improve'
+MYSQL_PORT = 3306

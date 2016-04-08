@@ -35,6 +35,7 @@ class mimproveQuizTestCase(unittest.TestCase):
         #return self.app.get('/quiz/get_quiz?username=test_patient')
     
     def test_home_status_code(self):
+        """Testing service availability"""
         # sends HTTP GET request to the application
         # on the specified path
         result = self.app.get('/')
@@ -43,7 +44,7 @@ class mimproveQuizTestCase(unittest.TestCase):
         self.assertEqual(result.status_code, 200)
 
     def test_quiz_response_status(self):
-        """Testing the fetching of quiz questions for a particular user"""
+        """Testing the fetching of quiz questions for a particular user, response check"""
         with app.app_context():
             
             username = 'test_patient'
@@ -54,7 +55,7 @@ class mimproveQuizTestCase(unittest.TestCase):
             assert rv.status_code == 200
 
     def test_quiz_length(self):
-        """Testing the fetching of quiz questions for a particular user"""
+        """Testing the fetching of quiz questions for a particular user, length check"""
         with app.app_context():
             
             username = 'test_patient'
@@ -69,7 +70,7 @@ class mimproveQuizTestCase(unittest.TestCase):
             assert len(resp_quiz) == 10
 
     def test_quiz_verify_list(self):
-        """Testing the fetching of quiz questions for a particular user"""
+        """Testing the fetching of quiz questions for a particular user, list verification"""
         with app.app_context():
             
             username = 'test_patient'
@@ -93,7 +94,7 @@ class mimproveQuizTestCase(unittest.TestCase):
                 assert 'incorrect_answer3' in question
 
     def test_quiz_verify_questions_keys(self):
-        """Testing the fetching of quiz questions for a particular user"""
+        """Testing the fetching of quiz questions for a particular user, verify keys"""
         with app.app_context():
             
             username = 'test_patient'
@@ -111,7 +112,28 @@ class mimproveQuizTestCase(unittest.TestCase):
                 assert 'correct_answer' in question
                 assert 'incorrect_answer1' in question
                 assert 'incorrect_answer2' in question
-                assert 'incorrect_answer3' in question    
+                assert 'incorrect_answer3' in question
+
+    def test_null_user(self):
+        """Testing the fetching of quiz questions for a blank username"""
+        with app.app_context():
+            
+            username = ""
+            #fetch the quiz
+            rv = self.get_quiz(username)
+
+            #check if client input error
+            assert rv.status_code == 400
+
+    def test_invalid_user(self):
+        """Testing the fetching of quiz questions for an invalid user"""
+        with app.app_context():
+            
+            username = "invalid"
+            #fetch the quiz
+            rv = self.get_quiz(username)
+            #check if a valid response
+            assert rv.status_code == 204
              
 if __name__ == '__main__':
     unittest.main()

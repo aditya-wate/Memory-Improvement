@@ -29,7 +29,15 @@
         <activity android:name=".TakeQuiz" />
         <activity
             android:name=".ViewPhotos"
+<<<<<<< HEAD
             android:label="@string/app_name" />
+=======
+            android:label="@string/app_name"></activity>
+        <activity
+            android:name=".ViewCalendar"
+            android:label="@string/app_name"></activity>
+
+>>>>>>> origin/master
     </application>
 
 </manifest>
