@@ -31,7 +31,6 @@ public class homeScreenTest extends ActivityInstrumentationTestCase2<HomeScreen>
         assertNotNull(bt);
 
     }
-
     public void testButton3()
     {
         Button bt = (Button) getActivity().findViewById(R.id.angry_btn);

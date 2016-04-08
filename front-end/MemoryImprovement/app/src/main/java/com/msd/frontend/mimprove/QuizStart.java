@@ -51,7 +51,7 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
         init();
         try
         {
-            if(getIntent().getBooleanExtra("isInputQuestion",true))
+            if(getIntent().getBooleanExtra("isInputQuestion",false))
             {
                 populateInputQuestionData();
             }
