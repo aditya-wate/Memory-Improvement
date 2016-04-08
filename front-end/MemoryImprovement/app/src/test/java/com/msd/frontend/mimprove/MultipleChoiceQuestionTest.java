@@ -19,12 +19,13 @@ public class MultipleChoiceQuestionTest extends TestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        this.multipleChoiceQuestion.setCorrectAnswers("Rome");
-        this.multipleChoiceQuestion.setCorrectAnswers("Miami");
-        this.multipleChoiceQuestion.setInCorrectAnswers("Brazil");
-        this.multipleChoiceQuestion.setInCorrectAnswers("Tehran");
-        this.multipleChoiceQuestion.setUsersAnswer("Miami");
-        this.multipleChoiceQuestion.setUsersAnswer("India");
+        this.multipleChoiceQuestion.setCorrect_answer("Miami");
+//        this.multipleChoiceQuestion.setCorrectAnswers("Miami");
+        this.multipleChoiceQuestion.setIncorrect_answer_1("Brazil");
+        this.multipleChoiceQuestion.setIncorrect_answer_2("Tehran");
+        this.multipleChoiceQuestion.setIncorrect_answer_3("India");
+        this.multipleChoiceQuestion.setUserAnswer("Miami");
+//        this.multipleChoiceQuestion.setUsersAnswer("India");
     }
 
     public void tearDown() throws Exception {
@@ -34,19 +35,15 @@ public class MultipleChoiceQuestionTest extends TestCase {
     public void testGetCorrectAnswers() throws Exception {
         String expectedAnswer1 = "Miami";
         String notExpectedAnswer1 = "Mumbai";
-        Set<String> actualAnswersSet = multipleChoiceQuestion.getCorrectAnswers();
-        Set<String> expectedAnswersSet = new HashSet<String>() {{
-            add("Miami");
-            add("Rome");
-        }};
+        String actualAnswer = multipleChoiceQuestion.getUserAnswer();
+        String expectedAnswer = "Rome";
+
 
         //test for the correct answer
-        assertTrue("Multiple Choice Question does not have the expected correct answer.", actualAnswersSet.contains(expectedAnswer1));
+        assertTrue("Multiple Choice Question does not have the expected correct answer.", actualAnswer.equalsIgnoreCase(expectedAnswer1));
         //test for option not present in the set
-        assertFalse("Multiple Choice Question should not have this option as correct answer.", actualAnswersSet.contains(notExpectedAnswer1));
-        //tests for multiple correct answers
-        assertTrue("Multiple Choice Question does not have the expected correct answers.", actualAnswersSet.containsAll(expectedAnswersSet));
-    }
+        assertFalse("Multiple Choice Question should not have this option as correct answer.", actualAnswer.equalsIgnoreCase(notExpectedAnswer1));
+        }
 
     public void testGetInCorrectAnswers() throws Exception {
 

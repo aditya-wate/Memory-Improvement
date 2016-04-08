@@ -4,8 +4,10 @@ package com.msd.frontend.mimprove;
 
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,12 +16,21 @@ import java.util.*;
 
 //import org.json.JSONObject;
 //import org.json.JSONArray;
+import org.json.*;
 import org.json.simple.*;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestHandle;
+import com.loopj.android.http.RequestParams;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by Kiran on 4/2/2016.
@@ -28,14 +39,14 @@ public class createQuiz
 {
 
 	public static ArrayList<QuestionKP> randomQuestionList = new ArrayList<>();
+	public static UserQuiz userQuiz;
 
-	public static UserQuiz getRandomisedQuiz(Context context) throws IOException, ParseException
-	{
+	public static UserQuiz getRandomisedQuiz(org.json.JSONObject jsonObject) throws IOException, ParseException, JSONException {
 //	   FileReader reader = new FileReader(QuizStart.this.getCacheDir()+"/quizJson.json");
 //	   FileReader reader = new FileReader(UserQuiz.getCacheDir()+"/quizJson.json");
 
-		FileReader reader = new FileReader(context.getCacheDir()+"/quizJson.json");
-		JSONObject jsonObject = (JSONObject) new JSONParser().parse(reader);
+//		FileReader reader = new FileReader(context.getCacheDir()+"/quizJson.json");
+//		JSONObject jsonObject = (JSONObject) new JSONParser().parse(reader);
 		UserQuiz userQuiz = new UserQuiz();
 		String userName = (String) jsonObject.get("username");
 
@@ -87,38 +98,40 @@ public class createQuiz
 	{
 //
 
-		FileReader reader = new FileReader(context.getCacheDir()+"/input.json"); // fileName for questions JSON
+		FileReader reader = new FileReader(context.getCacheDir()+"/get_info.json"); // fileName for questions JSON
 		JSONObject jsonObject = (JSONObject) new JSONParser().parse(reader);
 		UserQuiz userQuiz = new UserQuiz();
 		String userName = (String) jsonObject.get("username");
 
-		String quiz = jsonObject.get("quiz").toString();    // get questions
+		String quiz = jsonObject.get("info").toString();    // get questions
 //	   System.out.println("Quiz:" + quiz);
 //		userQuiz.setUserName(userName);
 
 
 		Gson gson = new Gson();
-		List<String> questionList;
-		questionList = gson.fromJson(quiz, new TypeToken<List<String>>() {
+		ArrayList<QuestionKP> questionList;
+		questionList = gson.fromJson(quiz, new TypeToken<List<QuestionKP>>() {
 		}.getType());
 
-		ArrayList<QuestionKP> questionObjects = createQuestions(questionList);
+
+
+//		ArrayList<QuestionKP> questionObjects = createQuestions(questionList);
 
 
 //		userQuiz.setQuestionList(randomQuestionList);
-		return questionObjects;
+		return questionList;
 	}
 
-	private static ArrayList<QuestionKP> createQuestions(List<String> questionList) {
-		ArrayList<QuestionKP> questionObjectList = new ArrayList<>();
-
-     for(String questionText:questionList){
-		 QuestionKP temp = new QuestionKP(questionText);
-		 questionObjectList.add(temp);
-     }
-
-		return questionObjectList;
-	}
+//	private static ArrayList<QuestionKP> createQuestions(List<String> questionList) {
+//		ArrayList<QuestionKP> questionObjectList = new ArrayList<>();
+//
+//     for(String questionText:questionList){
+//		 QuestionKP temp = new QuestionKP(questionText);
+//		 questionObjectList.add(temp);
+//     }
+//
+//		return questionObjectList;
+//	}
 
 
 	private static void randomize(List<MultipleChoiceQuestion> questionsArray)

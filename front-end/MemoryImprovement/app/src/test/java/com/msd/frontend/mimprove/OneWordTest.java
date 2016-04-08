@@ -15,7 +15,7 @@ public class OneWordTest extends TestCase {
     public void setUp() throws Exception {
         super.setUp();
         this.oneword.setCorrectAnswer("Kumar");
-
+        this.oneword.setUserAnswer("Kumar");
     }
 
     public void tearDown() throws Exception {
@@ -23,14 +23,14 @@ public class OneWordTest extends TestCase {
     }
 
     public void testGetCorrectAnswers() throws Exception {
-        String expectedAnswer1 = "Kumar";
-        String notExpectedAnswer1 = "Kaur";
-        String actualAnswer = oneword.getCorrectAnswer();
+        String expectedAnswer = "Kumar";
+        String notExpectedAnswer = "Kaur";
+        String actualAnswer = oneword.getUserAnswer();
 
         //test for the correct answer
-        assertTrue("One Word Question does not have the expected correct answer.", actualAnswer.equals(expectedAnswer1));
+        assertTrue("One Word Question does not have the expected correct answer.", actualAnswer.equals(expectedAnswer));
         //test for option not present in the set
-            assertFalse("One Word Question should not have this option as correct answer.", actualAnswer.equals(notExpectedAnswer1));
+            assertFalse("One Word Question should not have this option as correct answer.", actualAnswer.equals(notExpectedAnswer));
     }
 
     public void testGetInCorrectAnswers() throws Exception {

@@ -8,6 +8,9 @@ public class OneWord extends QuestionKP {
     private String userAnswer;
     
     public OneWord(){}
+    public OneWord(String questionText){
+        super(questionText);
+    }
 
     public OneWord(int id, String questionText) {
         super(id, questionText);

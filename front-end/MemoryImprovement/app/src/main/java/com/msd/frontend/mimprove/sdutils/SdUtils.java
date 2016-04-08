@@ -31,12 +31,11 @@ public class SdUtils
 
 
 
-        String fileNames[] = {"quizJson.json","input.json"};
+        String fileNames[] = {"quizJson.json","get_info.json"};
         try
         {
             for(String file:fileNames)
             {
-
                 InputStream myInput = context.getAssets().open(file);
                 android.util.Log.e("Received file",file);
                 String outFileName = context.getCacheDir() + "/" + file;
