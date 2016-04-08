@@ -12,18 +12,19 @@ public class HomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
     }
-    public void OpenGallery(View view)
-    {
+    public void OpenGallery(View view){
         Intent intent = new Intent(HomeScreen.this,ViewPhotos.class);
         startActivity(intent);
     }
-    public void TakeQuiz(View view)
-    {
+    public void OpenCalendar(View view){
+        Intent intent = new Intent(HomeScreen.this,ViewCalendar.class);
+        startActivity(intent);
+    }
+    public void TakeQuiz(View view){
         Intent intent = new Intent(HomeScreen.this,QuizStart.class);
         startActivity(intent);
     }
-    public void InputQuiz(View view)
-    {
+    public void InputQuiz(View view){
         Intent intent = new Intent(HomeScreen.this,QuizStart.class);
         intent.putExtra("isInputQuestion",true);
         startActivity(intent);
