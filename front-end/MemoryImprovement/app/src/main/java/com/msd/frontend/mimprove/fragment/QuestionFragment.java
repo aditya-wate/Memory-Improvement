@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.msd.frontend.mimprove.MultipleChoiceQuestion;
 import com.msd.frontend.mimprove.OneWord;
+import com.msd.frontend.mimprove.QuestionKP;
 import com.msd.frontend.mimprove.R;
 import com.msd.frontend.mimprove.interfaces.QuestionsInterfaces;
 
@@ -79,7 +80,7 @@ public class QuestionFragment extends Fragment implements QuestionsInterfaces
             }
 
         }
-        else
+        else if(OneWord.class.isInstance(questionList.get(currentPosition)))
         {
             currentView = inflater.inflate(R.layout.activity_question_missing_statement,null);
             questionText = (TextView)currentView.findViewById(R.id.question_missing_statement_title);
@@ -123,6 +124,50 @@ public class QuestionFragment extends Fragment implements QuestionsInterfaces
 
                             corrected.put(currentPosition,true);
                         }
+                    }
+                    else
+                    {
+                        corrected.put(currentPosition,false);
+                    }
+                }
+            });
+        }
+        else
+        {
+            currentView = inflater.inflate(R.layout.activity_question_missing_statement,null);
+            questionText = (TextView)currentView.findViewById(R.id.question_missing_statement_title);
+//          final QuestionKP oneWord = questionList.get(currentPosition);
+            final EditText answerFromUser = (EditText) currentView.findViewById(R.id.question_missing_statement_text);
+            answerFromUser.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+
+                        submitted.put(currentPosition, true);
+                        Toast.makeText(getActivity(), "Submitted", Toast.LENGTH_SHORT).show();
+                    }
+
+                    return true;
+                }
+            });
+
+            answerFromUser.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable)
+                {
+                    if(!answerFromUser.getText().toString().equals(""))
+                    {
+                        submitted.put(currentPosition, true);
                     }
                     else
                     {

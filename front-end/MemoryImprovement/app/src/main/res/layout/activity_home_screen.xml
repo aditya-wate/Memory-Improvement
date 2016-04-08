@@ -89,8 +89,4 @@
         android:onClick="InputQuiz"/>
 
 
-
-
-
-
 </RelativeLayout>
