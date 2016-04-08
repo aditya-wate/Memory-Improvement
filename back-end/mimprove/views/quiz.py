@@ -2,6 +2,7 @@ import flask
 import json, os
 from flask import request, abort, jsonify, current_app
 import MySQLdb as mdb
+from mimprove.views import *
 
 quiz_view = flask.Blueprint('quiz', __name__)
 
@@ -23,7 +24,7 @@ def get_quiz():
     Otherwise, return an HTTP 500 error.
 
     """
-    con = mdb.connect(host='127.0.0.1', port=3306,user='root', passwd='wstwbh57', db='memory_improve')
+    con = mdb.connect(host=MYSQL_HOST, port=MYSQL_PORT,user=MYSQL_USER, passwd=MYSQL_PASSWD, db=MYSQL_DB)
     with con:    
         username = request.form['username']
         if username == '':
