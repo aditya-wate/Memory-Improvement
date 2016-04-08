@@ -38,11 +38,7 @@ public class LogInActivity extends AppCompatActivity {
 //        });
 
         //   addListenerOnLogInButton();
-<<<<<<< HEAD
-//        addListenerOnRegisterButton();
-=======
-        addListenerOnRegisterButton();
->>>>>>> origin/master
+       // addListenerOnRegisterButton();
 
 
     }
@@ -63,15 +59,6 @@ public class LogInActivity extends AppCompatActivity {
     }
 
 
-<<<<<<< HEAD
-//    public void addListenerOnLogInButton() {
-//        final Context context = this;
-//
-//
-//            }
-=======
-    }
->>>>>>> origin/master
 
 
 
