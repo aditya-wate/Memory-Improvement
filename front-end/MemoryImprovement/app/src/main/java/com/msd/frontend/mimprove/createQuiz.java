@@ -4,8 +4,10 @@ package com.msd.frontend.mimprove;
 
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,7 +16,9 @@ import java.util.*;
 
 //import org.json.JSONObject;
 //import org.json.JSONArray;
+import org.json.*;
 import org.json.simple.*;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -23,6 +27,7 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.RequestParams;
 
 import cz.msebera.android.httpclient.Header;
@@ -34,14 +39,14 @@ public class createQuiz
 {
 
 	public static ArrayList<QuestionKP> randomQuestionList = new ArrayList<>();
+	public static UserQuiz userQuiz;
 
-	public static UserQuiz getRandomisedQuiz(Context context) throws IOException, ParseException
-	{
+	public static UserQuiz getRandomisedQuiz(org.json.JSONObject jsonObject) throws IOException, ParseException, JSONException {
 //	   FileReader reader = new FileReader(QuizStart.this.getCacheDir()+"/quizJson.json");
 //	   FileReader reader = new FileReader(UserQuiz.getCacheDir()+"/quizJson.json");
 
-		FileReader reader = new FileReader(context.getCacheDir()+"/quizJson.json");
-		JSONObject jsonObject = (JSONObject) new JSONParser().parse(reader);
+//		FileReader reader = new FileReader(context.getCacheDir()+"/quizJson.json");
+//		JSONObject jsonObject = (JSONObject) new JSONParser().parse(reader);
 		UserQuiz userQuiz = new UserQuiz();
 		String userName = (String) jsonObject.get("username");
 
@@ -161,28 +166,6 @@ public class createQuiz
 		oneWord_question.setCorrectAnswer(question.getCorrect_answer());
 		randomQuestionList.add(oneWord_question);
 //		return randomQuestionList;
-	}
-
-	public static void getServerData()
-	{
-		android.util.Log.e("Call made","yes");
-		AsyncHttpClient clientHandler = new AsyncHttpClient();
-		RequestParams callParams = new RequestParams();
-		callParams.put("username", "test_patient");
-		clientHandler.post("http://54.172.172.152/quiz/get_quiz", callParams, new AsyncHttpResponseHandler() {
-			@Override
-			public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-				android.util.Log.e("Response succes",new String(responseBody));
-
-			}
-
-			@Override
-			public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-				android.util.Log.e("Response fail",new String(responseBody));
-
-			}
-		});
 	}
 
 

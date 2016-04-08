@@ -1,5 +1,6 @@
 package com.msd.frontend.mimprove;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -7,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageButton;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,16 +18,24 @@ import android.widget.Toast;
 //import com.example.kiran.msdapp1.interfaces.QuestionsInterfaces;
 //import com.example.kiran.msdapp1.sdutils.SdUtils;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestHandle;
+import com.loopj.android.http.RequestParams;
 import com.msd.frontend.mimprove.adapter.QuestionsAdapter;
 import com.msd.frontend.mimprove.interfaces.QuestionsInterfaces;
 import com.msd.frontend.mimprove.sdutils.*;
 import com.msd.frontend.mimprove.design.SwipeDisabledViewPager;
 
+import org.json.JSONException;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+
+import cz.msebera.android.httpclient.Header;
+
 public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
 {
     private TextView pageNo;
@@ -47,7 +57,9 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
             }
             else
             {
-                populateData();
+                ProgressDialog progressDialog = ProgressDialog.show(QuizStart.this,"Fetching data","Loading quiz..");
+                getDataFromServer(progressDialog);
+                //populateData();
             }
 
         }catch (ParseException e1)
@@ -188,10 +200,10 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
     }
 
 
-    private void populateData() throws IOException, ParseException
+    private void populateData(UserQuiz quiz) throws IOException, ParseException
     {
         SdUtils.copyJsonToSdCard(QuizStart.this);
-        UserQuiz quiz = createQuiz.getRandomisedQuiz(QuizStart.this);
+        //UserQuiz quiz = createQuiz.getRandomisedQuiz(QuizStart.this);
         final ArrayList<QuestionKP> questions = quiz.getQuestionList();
         android.util.Log.e("Questions received",""+questions.size());
         questionList.clear();
@@ -220,5 +232,51 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
         QuestionsAdapter questionsAdapter = new QuestionsAdapter(questions,getSupportFragmentManager());
         pager.setAdapter(questionsAdapter);
         pager.setCurrentItem(0);
+    }
+
+
+    private void getDataFromServer(final ProgressDialog progressDialog)
+    {
+        android.util.Log.e("Call made", "yes");
+        AsyncHttpClient clientHandler = new AsyncHttpClient();
+        RequestParams callParams = new RequestParams();
+        callParams.put("username", "test_patient");
+
+
+        clientHandler.post("http://54.172.172.152/quiz/get_quiz", callParams, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                Log.e("Response succes", new String(responseBody));
+
+                String string = new String(responseBody);
+                String res = "" + string;
+                org.json.JSONObject jsonObject = null;
+                try {
+                    jsonObject = new org.json.JSONObject(res);
+                    UserQuiz userQuiz1 = createQuiz.getRandomisedQuiz(jsonObject);
+                    populateData(userQuiz1);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+                progressDialog.dismiss();
+
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Log.e("Response fail", new String(responseBody));
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(),"Sorry there was some problem",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
