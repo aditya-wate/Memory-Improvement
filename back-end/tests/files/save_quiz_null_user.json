@@ -1,0 +1,66 @@
+{
+  "quiz": [
+    {
+      "correct_answer": "Bill Murray",
+      "user_answer": "Michael Jackson",
+      "question_id": 7,
+      "text": "Who is your favorite celebrity?"
+    },
+    {
+      "correct_answer": "June",
+      "user_answer": "June",
+      "question_id": 6,
+      "text": "Which month of the year is your birthday?"
+    },
+    {
+      "correct_answer": "Purple",
+      "user_answer": "Red",
+      "question_id": 1,
+      "text": "What is your favorite colour ?"
+    },
+    {
+      "correct_answer": "Dog Day Afternoon",
+      "user_answer": "Shawshank Redemption",
+      "question_id": 8,
+      "text": "Which is your favorite movie?"
+    },
+    {
+      "correct_answer": "23",
+      "user_answer": "23",
+      "question_id": 4,
+      "text": "What are the last two digits of your cellphone num"
+    },
+    {
+      "correct_answer": "Marie",
+      "user_answer": "Marie",
+      "question_id": 3,
+      "text": "What is your mother's maiden name?"
+    },
+    {
+      "correct_answer": "Hamster",
+      "user_answer": "Hamster",
+      "question_id": 10,
+      "text": "Which pet do you have"
+    },
+    {
+      "correct_answer": "Los Angeles",
+      "user_answer": "Los Angeles",
+      "question_id": 5,
+      "text": "In which city were your born?"
+    },
+    {
+      "correct_answer": "Venice",
+      "user_answer": "Venice",
+      "question_id": 2,
+      "text": "Which is your favorite holiday destination?"
+    },
+    {
+      "correct_answer": "Cricket",
+      "user_answer": "Cricket",
+      "question_id": 9,
+      "text": "Which sport do you like the most?"
+    }
+  ],
+  "username": "",
+  "score":7
+}

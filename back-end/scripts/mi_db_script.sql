@@ -66,13 +66,12 @@ CREATE TABLE patient (
   PRIMARY KEY (patient_id)
 );
 
-
 CREATE TABLE quiz (
   quiz_id INT(11) NOT NULL AUTO_INCREMENT,
   score INT NOT NULL CHECK(score <= 100),
   patient_id INT(11) NOT NULL,
-  start_date DATE NOT NULL,
-  state NVARCHAR(65535),
+  start_date DATETIME NOT NULL,
+  state TEXT,
   FOREIGN KEY (patient_id) REFERENCES patient (patient_id) ON DELETE CASCADE,
   PRIMARY KEY (quiz_id)
 );

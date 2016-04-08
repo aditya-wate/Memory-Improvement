@@ -1,5 +1,4 @@
 import unittest
-import tempfile
 import os,sys,inspect
 from flask import current_app
 from flask.ext.login import current_user
@@ -19,7 +18,7 @@ import mimprove
 # Initialize the application
 app = mimprove.create_app()
         
-class mimproveQuizTestCase(unittest.TestCase):
+class mimproveGetQuizTestCase(unittest.TestCase):
     
     def setUp(self):
         app.testing = True
@@ -32,7 +31,6 @@ class mimproveQuizTestCase(unittest.TestCase):
     
     def get_quiz(self, username):
         return self.app.post('/quiz/get_quiz', data=dict(username=username))
-        #return self.app.get('/quiz/get_quiz?username=test_patient')
     
     def test_home_status_code(self):
         """Testing service availability"""
@@ -85,13 +83,6 @@ class mimproveQuizTestCase(unittest.TestCase):
             #check if the quiz is a list
             assert isinstance(resp_quiz,list)
 
-            #check for keys
-            for question in resp_quiz:
-                assert 'text' in question
-                assert 'correct_answer' in question
-                assert 'incorrect_answer1' in question
-                assert 'incorrect_answer2' in question
-                assert 'incorrect_answer3' in question
 
     def test_quiz_verify_questions_keys(self):
         """Testing the fetching of quiz questions for a particular user, verify keys"""
@@ -134,6 +125,105 @@ class mimproveQuizTestCase(unittest.TestCase):
             rv = self.get_quiz(username)
             #check if a valid response
             assert rv.status_code == 204
+
+class mimproveSaveQuizTestCase(unittest.TestCase):
+     
+    def setUp(self):
+        app.testing = True
+        
+        with app.app_context():
+            self.app = app.test_client()
+            
+    def tearDown(self):
+        pass
+    
+    def save_quiz(self, jsonfile):
+        return self.app.post('/quiz/save_quiz', data=json.dumps(jsonfile), content_type = 'application/json')
+    
+    def test_home_status_code(self):
+        """Testing service availability"""
+        # sends HTTP GET request to the application
+        # on the specified path
+        result = self.app.get('/')
+
+        # assert the status code of the response
+        self.assertEqual(result.status_code, 200)
+
+    def test_quiz_response_status(self):
+        """Testing the saving of quiz score for a particular user, response check"""
+        with app.app_context():
+            with open(os.path.join('tests/files', 'save_quiz' + '.json'),'r') as rf:
+                req = json.load(rf)
+                
+            #call save quiz
+            rv = self.save_quiz(req)
+
+            #check if a valid response
+            assert rv.status_code == 200
+
+    def test_quiz_response(self):
+        """Testing the saving of quiz score for a particular user, response check"""
+        with app.app_context():
+            with open(os.path.join('tests/files', 'save_quiz' + '.json'),'r') as rf:
+                req = json.load(rf)
+            
+            #call save quiz
+            rv = self.save_quiz(req)
+
+            resp = json.loads(rv.data)
+            
+            #check if a valid response
+            assert resp['username'] == 'test_patient'
+
+            assert resp['result'] == 'save_successful'
+
+    def test_quiz_length(self):
+        """Testing the saving of quiz for a particular user, length check"""
+        with app.app_context():
+            with open(os.path.join('tests/files', 'save_quiz' + '.json'),'r') as rf:
+                req = json.load(rf)
+            assert len(req['quiz']) == 10
+
+    def test_quiz_verify_list(self):
+        """Testing the fetching of quiz questions for a particular user, list verification"""
+        with app.app_context():
+            with open(os.path.join('tests/files', 'save_quiz' + '.json'),'r') as rf:
+                req = json.load(rf)
+            #check if the quiz is a list
+            assert isinstance(req['quiz'],list)
+
+
+    def test_quiz_verify_questions_keys(self):
+        """Testing the fetching of quiz questions for a particular user, verify keys"""
+        with app.app_context():            
+            with open(os.path.join('tests/files', 'save_quiz' + '.json'),'r') as rf:
+                req = json.load(rf)
+            #check for keys
+            for question in req['quiz']:
+                assert 'text' in question
+                assert 'correct_answer' in question
+                assert 'user_answer' in question
+
+    def test_null_user(self):
+        """Testing the fetching of quiz questions for a blank username"""
+        with app.app_context():
+            with open(os.path.join('tests/files', 'save_quiz_null_user' + '.json'),'r') as rf:
+                req_null = json.load(rf)
+                #call save quiz
+                rv = self.save_quiz(req_null)
+
+                #check if client input error
+                assert rv.status_code == 400
+
+    def test_invalid_user(self):
+        """Testing the fetching of quiz questions for an invalid user"""
+        with app.app_context():
+            with open(os.path.join('tests/files', 'save_quiz_invalid_user' + '.json'),'r') as rf:
+                req_null = json.load(rf)
+                #call save quiz
+                rv = self.save_quiz(req_null)
+                #check if a valid response
+                assert rv.status_code == 204
              
 if __name__ == '__main__':
     unittest.main()
