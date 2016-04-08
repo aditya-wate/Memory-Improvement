@@ -38,7 +38,7 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
 
-     //   addListenerOnLogInButton();
+        //   addListenerOnLogInButton();
         addListenerOnRegisterButton();
 
 
@@ -49,7 +49,7 @@ public class LogInActivity extends AppCompatActivity {
         final Context context = this;
 
 
-            }
+    }
 
 
 
