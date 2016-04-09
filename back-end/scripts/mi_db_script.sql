@@ -451,7 +451,9 @@ INSERT INTO question VALUES(10,
 							'category_animals',
                             'Which pet do you have?',
                             'Hamster',
-                            1);                            
+                            1);   
+                            
+-- populate questions
 
 INSERT INTO personal_info VALUES(1, 
 							'category_color',

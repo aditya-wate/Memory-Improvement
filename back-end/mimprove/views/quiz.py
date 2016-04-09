@@ -21,8 +21,9 @@ def get_quiz():
 
     Errors:
 
-    This method is allowed to all the user who has requested the quiz.
-    Otherwise, return an HTTP 400 error.
+    This method is allowed to all users who have been logged in
+    Otherwise, return an HTTP 204 error.
+
 
     """
     con = mdb.connect(host=MYSQL_HOST, port=MYSQL_PORT,user=MYSQL_USER, passwd=MYSQL_PASSWD, db=MYSQL_DB)
@@ -76,14 +77,14 @@ def save_quiz():
     URL: /quiz/save_quiz
     POST parameters:
 
-    - username: the user for which the questions are to be fetched
+    - json: the quiz and the score for the patient
 
-    The response is a json dictionary which contains the questions with the possible and the correct answers.
+    The response returns the success of the insert
 
     Errors:
 
-    This method is allowed to all the user who has requested the quiz.
-    Otherwise, return an HTTP 400 error.
+    This method is allowed to all users who have been logged in
+    Otherwise, return an HTTP 204 error.
 
     """
 
@@ -135,3 +136,57 @@ def save_quiz():
                 return jsonify(resp)
         else:
             return ('User not found', 204)
+
+@quiz_view.route('/get_info', methods=['GET'])
+def get_info():
+    """
+    This service gets the information to be gathered from the patient and sends it to frontend.
+    
+    Return the list of questions to ask the patient
+
+    URL: /quiz/get_info
+    GET parameters:
+
+    none
+
+    The response is a json dictionary which contains the questions to be asked to users.
+
+    Errors:
+
+    This method returns data from db.
+    Otherwise, return an HTTP 204 error.
+
+    """
+    con = mdb.connect(host=MYSQL_HOST, port=MYSQL_PORT,user=MYSQL_USER, passwd=MYSQL_PASSWD, db=MYSQL_DB)
+    with con:
+        content = request.json
+        
+        cur = con.cursor()
+        
+        personal_info = "SELECT category, question_string FROM personal_info"
+        
+        try:
+            row_count = cur.execute(personal_info)
+        except MySQLdb.Error, e:
+            try:
+                print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
+            except IndexError:
+                print "MySQL Error: %s" % str(e)
+            
+        if row_count > 0:
+            resp = dict()
+            questions = list()
+            
+            question_rows = cur.fetchall()
+
+            for row in question_rows:
+                question = dict()
+                question['category'] = row[0]
+                question['text'] = row[1]
+                questions.append(question)
+
+            resp['info']=questions
+            return jsonify(resp)
+        
+        else:
+            return ('Content not found', 204)
