@@ -224,7 +224,130 @@ class mimproveSaveQuizTestCase(unittest.TestCase):
                 rv = self.save_quiz(req)
                 #check if a valid response
                 assert rv.status_code == 204
-             
+
+class mimproveGetHistoryTestCase(unittest.TestCase):
+    
+    def setUp(self):
+        app.testing = True
+        
+        with app.app_context():
+            self.app = app.test_client()
+        
+    def tearDown(self):
+        pass
+    
+    def get_history(self,username):
+        return self.app.get('/quiz/get_history?username='+username)
+    
+    def test_home_status_code(self):
+        """Testing service availability"""
+        # sends HTTP GET request to the application
+        # on the specified path
+        result = self.app.get('/')
+
+        # assert the status code of the response
+        self.assertEqual(result.status_code, 200, "Failed: The http status is not 200")
+
+    def test_quiz_response_status(self):
+        """Testing the fetching of quiz history for a particular user, response check"""
+        with app.app_context():
+
+            username = 'test_patient'
+            
+            #fetch the history
+            rv = self.get_history(username)
+
+            #check if a valid response
+            self.assertEqual(rv.status_code, 200, "Failed: The http status is not 200")
+
+
+    def test_quiz_verify_history_list(self):
+        """Testing the fetching of quiz history for a particular user, list verification"""
+        with app.app_context():
+
+            username = 'test_patient'
+            
+            #fetch the history
+            rv = self.get_history(username)
+
+            #load the response data
+            resp = json.loads(rv.data)
+
+            resp_history = resp['history']
+
+            #check if the quiz is a list
+            self.assertTrue(isinstance(resp_history,list),"Failed: History should be a list of quizzes")
+
+    def test_quiz_verify_quiz_list(self):
+        """Testing the fetching of quiz history for a particular user, list verification"""
+        with app.app_context():
+
+            username = 'test_patient'
+            
+            #fetch the history
+            rv = self.get_history(username)
+
+            #load the response data
+            resp = json.loads(rv.data)
+        
+            resp_history_quiz = resp['history'][0]['quiz']
+
+            #check if the quiz is a list
+            self.assertTrue(isinstance(resp_history_quiz,list),"Failed: Quiz should be a list of questions")
+
+    def test_quiz_verify_quiz_length(self):
+        """Testing the fetching of quiz history for a particular user, list verification"""
+        with app.app_context():
+
+            username = 'test_patient'
+            
+            #fetch the history
+            rv = self.get_history(username)
+
+            #load the response data
+            resp = json.loads(rv.data)
+        
+            resp_history_quiz = resp['history'][0]['quiz']
+
+            #check if the quiz is a list
+            self.assertTrue(len(resp_history_quiz) == 10,"Failed: Quiz should be a list of 10 questions")
+
+    def test_quiz_verify_history_keys(self):
+        """Testing the fetching of quiz history for a particular user, verify keys"""
+        with app.app_context():
+            
+            username = 'test_patient'
+            
+            #fetch the history
+            rv = self.get_history(username)
+
+            #load the response data
+            resp = json.loads(rv.data)
+
+            resp_history = resp['history']
+
+            #check for keys
+            for quiz in resp_history:
+                assert 'quiz' in quiz
+                assert 'score' in quiz
+                assert 'start_date' in quiz
+                
+    def test_quiz_verify_response_keys(self):
+        """Testing the fetching of quiz history for a particular user, verify response keys"""
+        with app.app_context():
+            
+            username = 'test_patient'
+            
+            #fetch the history
+            rv = self.get_history(username)
+
+            #load the response data
+            resp = json.loads(rv.data)
+
+            #check for keys
+            assert 'history' in resp
+            assert 'username' in resp
+            
 if __name__ == '__main__':
     unittest.main()
 
