@@ -118,7 +118,7 @@ def save_quiz():
             start_date = now.strftime('%Y-%m-%d %H:%M:%S')
             
             #get quiz
-            quiz=str(content['quiz'])
+            quiz=json.dumps(content['quiz'])
             
             cur = con.cursor()
 
