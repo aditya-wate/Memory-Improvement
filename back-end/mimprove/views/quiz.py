@@ -188,3 +188,72 @@ def get_info():
         
         else:
             return ('Content not found', 204)
+
+@quiz_view.route('/save_info', methods=['POST'])
+def save_info():
+    """
+    This service pushes the information gathered from the patient to the database.
+    
+    Returns the success/failure of the operation
+
+    URL: /quiz/save_info
+    POST parameters: username
+
+    Errors:
+
+    This method is allowed to all users who have been logged in
+    Otherwise, return an HTTP 204 error.
+
+    """
+
+    con = mdb.connect(host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWD, db=MYSQL_DB)
+    with con:
+        content = request.json
+        username = content['username']
+        if username == "":
+            abort(400)
+
+        cur = con.cursor()
+        
+        stmt_patient = "SELECT p.patient_id FROM patient p, user u\
+                WHERE p.user_id = u.user_id and u.username = %s"
+
+        try:
+            row_count = cur.execute(stmt_patient,[username])
+        except MySQLdb.Error, e:
+            try:
+                print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
+            except IndexError:
+                print "MySQL Error: %s" % str(e)
+        
+        if row_count > 0:
+            resp = dict()
+            resp['username'] = username
+            
+            #getting parameters required for insert in question table
+            #get patient_id
+            patient_id = cur.fetchone()[0]
+            
+            #get quiz
+            info=content['info']
+
+            # initialize the list of tuple for insertion
+            tupled_info = list()
+
+            for question in info:
+                tupled_info.append((question['category'],question['text'],question['user_answer'],patient_id))
+            
+            cur = con.cursor()
+
+            stmt_insert_quiz = "INSERT INTO question (category,question_string,answer,patient_id) VALUES (%s,%s,%s,%s)"
+
+            row_count = cur.executemany(stmt_insert_quiz,tupled_info)
+
+            if row_count > 0:
+                resp['result'] = 'save_successful'
+                return jsonify(resp)
+            else:
+                resp['result'] = 'save_failure'
+                return jsonify(resp)
+        else:
+            return ('User not found', 204)
