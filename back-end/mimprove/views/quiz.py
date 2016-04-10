@@ -256,3 +256,60 @@ def save_info():
                 return jsonify(resp)
         else:
             return ('User not found', 204)
+
+
+@quiz_view.route('/get_history', methods=['GET'])
+def get_history():
+    """
+    This service gets the history of quizzes taken by a patient.
+    
+    URL: /quiz/get_history
+
+    GET parameters: username
+
+    The response is a json dictionary which contains the quiz with score and date taken.
+
+    Errors:
+
+    This method is allowed to all users who have requested the quiz.
+    Otherwise, return an HTTP 204 error.
+
+    """
+    con = mdb.connect(host=MYSQL_HOST, port=MYSQL_PORT, user=MYSQL_USER, passwd=MYSQL_PASSWD, db=MYSQL_DB)
+    with con:
+        
+        username = request.args.get('username')
+        
+        cur = con.cursor()
+        
+        hist_stmt = "SELECT q.score, q.start_date, q.state FROM quiz q\
+                    WHERE q.patient_id = (SELECT p.patient_id FROM patient p, user u\
+                    WHERE p.user_id = u.user_id and u.username = %s)"
+        
+        try:
+            row_count = cur.execute(hist_stmt,[username])
+        except MySQLdb.Error, e:
+            try:
+                print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
+            except IndexError:
+                print "MySQL Error: %s" % str(e)
+            
+        if row_count > 0:
+            resp = dict()
+            resp['username'] = username
+            history = list()
+            
+            quiz_rows = cur.fetchall()
+
+            for quiz_row in quiz_rows:
+                quiz = dict()
+                quiz['quiz'] = json.loads(quiz_row[2])
+                quiz['score'] = quiz_row[0]
+                quiz['start_date'] = quiz_row[1].strftime('%Y-%m-%d %H:%M:%S')
+                history.append(quiz)
+                
+            resp['history'] = history
+            return jsonify(resp)
+        
+        else:
+            return ('Content not found', 204)
