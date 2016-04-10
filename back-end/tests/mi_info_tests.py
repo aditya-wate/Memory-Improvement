@@ -126,7 +126,7 @@ class mimproveSaveInfoTestCase(unittest.TestCase):
     def test_quiz_response_status(self):
         """Testing the saving of information entered by the user, response check"""
         with app.app_context():
-            with open(os.path.join('tests/files', 'save_info' + '.json'),'r') as rf:
+            with open(os.path.join('back-end/tests/files', 'save_info' + '.json'),'r') as rf:
                 req = json.load(rf)
                 
             #call save quiz
@@ -138,7 +138,7 @@ class mimproveSaveInfoTestCase(unittest.TestCase):
     def test_quiz_response(self):
         """Testing the saving of information entered by the user, response check"""
         with app.app_context():
-            with open(os.path.join('tests/files', 'save_info' + '.json'),'r') as rf:
+            with open(os.path.join('back-end/tests/files', 'save_info' + '.json'),'r') as rf:
                 req = json.load(rf)
             
             #call save quiz
@@ -154,14 +154,14 @@ class mimproveSaveInfoTestCase(unittest.TestCase):
     def test_quiz_length(self):
         """Testing the saving of information for a particular user, length check"""
         with app.app_context():
-            with open(os.path.join('tests/files', 'save_info' + '.json'),'r') as rf:
+            with open(os.path.join('back-end/tests/files', 'save_info' + '.json'),'r') as rf:
                 req = json.load(rf)
             self.assertTrue(len(req['info']) == 2,"Failed: Length of the expected request is not 2")
 
     def test_null_user(self):
         """Testing the saving of information for a blank username"""
         with app.app_context():
-            with open(os.path.join('tests/files', 'save_info_null_user' + '.json'),'r') as rf:
+            with open(os.path.join('back-end/tests/files', 'save_info_null_user' + '.json'),'r') as rf:
                 req_null = json.load(rf)
                 #call save info
                 rv = self.save_info(req_null)
@@ -172,7 +172,7 @@ class mimproveSaveInfoTestCase(unittest.TestCase):
     def test_invalid_user(self):
         """Testing the fetching of quiz questions for an invalid user"""
         with app.app_context():
-            with open(os.path.join('tests/files', 'save_info_invalid_user' + '.json'),'r') as rf:
+            with open(os.path.join('back-end/tests/files', 'save_info_invalid_user' + '.json'),'r') as rf:
                 req = json.load(rf)
                 #call save quiz
                 rv = self.save_info(req)
