@@ -157,7 +157,6 @@ def get_info():
     """
     con = mdb.connect(host=MYSQL_HOST, port=MYSQL_PORT,user=MYSQL_USER, passwd=MYSQL_PASSWD, db=MYSQL_DB)
     with con:
-        content = request.json
         
         cur = con.cursor()
         
@@ -197,7 +196,7 @@ def save_info():
     Returns the success/failure of the operation
 
     URL: /quiz/save_info
-    POST parameters: username
+    POST parameters: json with questions and answers by the patient
 
     Errors:
 
