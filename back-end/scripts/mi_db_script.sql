@@ -455,55 +455,68 @@ INSERT INTO question VALUES(10,
                             
 -- populate questions
 
-INSERT INTO personal_info VALUES(1, 
+INSERT INTO personal_info VALUES(1,
 							'category_color',
                             'What is your favorite colour ?');
                             
-INSERT INTO personal_info VALUES(2, 
+INSERT INTO personal_info VALUES(2,
 							'category_city',
                             'Which is your favorite holiday destination?');
                             
-INSERT INTO personal_info VALUES(3, 
+INSERT INTO personal_info VALUES(3,
 							'category_people_female',
                             'What is your mother\'s maiden name?');
                             
-INSERT INTO personal_info VALUES(4, 
+INSERT INTO personal_info VALUES(4,
 							'category_number',
                             'What are the last two digits of your cellphone number?');
                             
-INSERT INTO personal_info VALUES(5, 
+INSERT INTO personal_info VALUES(5,
 							'category_city',
                             'In which city were your born?');
                             
-INSERT INTO personal_info VALUES(6, 
+INSERT INTO personal_info VALUES(6,
 							'category_month',
                             'Which month of the year is your birthday?');
                             
-INSERT INTO personal_info VALUES(7, 
+INSERT INTO personal_info VALUES(7,
 							'category_celebrities',
                             'Who is your favorite celebrity?');
                             
-INSERT INTO personal_info VALUES(8, 
+INSERT INTO personal_info VALUES(8,
 							'category_movie',
                             'Which is your favorite movie?');
                             
-INSERT INTO personal_info VALUES(9, 
+INSERT INTO personal_info VALUES(9,
 							'category_sports',
                             'Which sport do you like the most?');
                             
-INSERT INTO personal_info VALUES(10, 
+INSERT INTO personal_info VALUES(10,
 							'category_animals',
                             'Which pet do you have?');
                             
-INSERT INTO personal_info VALUES(11, 
+INSERT INTO personal_info VALUES(11,
 							'category_phone',
                             'Which smartphone do you use?');
 
-INSERT INTO personal_info VALUES(12, 
+INSERT INTO personal_info VALUES(12,
 							'category_food',
                             'What is your favorite food?');
                             
-INSERT INTO personal_info VALUES(13, 
+INSERT INTO personal_info VALUES(13,
 							'category_celebrities',
                             'Who is your role model?');
+                            
+INSERT INTO personal_info VALUES(14,
+							'category_hobbies',
+                            'What do you like to do in your spare time?');
+                            
+INSERT INTO personal_info VALUES(15,
+							'category_songs',
+                            'Which song do you like the most?');
+                            
+INSERT INTO personal_info VALUES(16,
+							'category_music',
+                            'What kind of music do you like?');
+                            
 COMMIT;

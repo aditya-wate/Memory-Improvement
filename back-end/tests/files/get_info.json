@@ -51,6 +51,18 @@
     {
       "category": "category_celebrities",
       "text": "Who is your role model?"
+    },
+    {
+      "category": "category_hobbies",
+      "text": "What do you like to do in your spare time?"
+    },
+    {
+      "category": "category_songs",
+      "text": "Which song do you like the most?"
+    },
+    {
+      "category": "category_music",
+      "text": "What kind of music do you like?"
     }
   ]
 }

@@ -110,7 +110,7 @@ def save_quiz():
             #get patient_id
             patient_id = cur.fetchone()[0]
             
-            #get score form the request
+            #get score from the request
             score = content['score']
             
             #get current date-time
@@ -118,9 +118,7 @@ def save_quiz():
             start_date = now.strftime('%Y-%m-%d %H:%M:%S')
             
             #get quiz
-            #quiz = dict()
             quiz=str(content['quiz'])
-            #quiz_string = str(quiz)
             
             cur = con.cursor()
 

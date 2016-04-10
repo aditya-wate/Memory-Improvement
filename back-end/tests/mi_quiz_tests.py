@@ -194,7 +194,7 @@ class mimproveSaveQuizTestCase(unittest.TestCase):
 
 
     def test_quiz_verify_questions_keys(self):
-        """Testing the fetching of quiz questions for a particular user, verify keys"""
+        """Testing the saving of quiz questions for a particular user, verify keys"""
         with app.app_context():            
             with open(os.path.join('back-end/tests/files', 'save_quiz' + '.json'),'r') as rf:
                 req = json.load(rf)
@@ -205,7 +205,7 @@ class mimproveSaveQuizTestCase(unittest.TestCase):
                 assert 'user_answer' in question
 
     def test_null_user(self):
-        """Testing the fetching of quiz questions for a blank username"""
+        """Testing the saving of quiz questions for a blank username"""
         with app.app_context():
             with open(os.path.join('back-end/tests/files', 'save_quiz_null_user' + '.json'),'r') as rf:
                 req_null = json.load(rf)
@@ -216,12 +216,12 @@ class mimproveSaveQuizTestCase(unittest.TestCase):
                 assert rv.status_code == 400
 
     def test_invalid_user(self):
-        """Testing the fetching of quiz questions for an invalid user"""
+        """Testing the saving of quiz questions for an invalid user"""
         with app.app_context():
             with open(os.path.join('back-end/tests/files', 'save_quiz_invalid_user' + '.json'),'r') as rf:
-                req_null = json.load(rf)
+                req = json.load(rf)
                 #call save quiz
-                rv = self.save_quiz(req_null)
+                rv = self.save_quiz(req)
                 #check if a valid response
                 assert rv.status_code == 204
              
