@@ -18,13 +18,19 @@
         android:theme="@style/AppTheme">
         <activity android:name=".QuizStart"></activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".LogInActivity" />
-        <activity android:name=".HomeScreen">
+        <activity android:name=".PictureQuestion"></activity>
+
+        <activity android:name=".PictureQuiz"/>
+        <activity android:name=".LogInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".HomeScreen">
+
         </activity>
         <activity android:name=".TakeQuiz" />
         <activity

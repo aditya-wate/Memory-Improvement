@@ -38,7 +38,7 @@ public class LogInActivity extends AppCompatActivity {
 //        });
 
         //   addListenerOnLogInButton();
-       // addListenerOnRegisterButton();
+       addListenerOnRegisterButton();
 
 
     }

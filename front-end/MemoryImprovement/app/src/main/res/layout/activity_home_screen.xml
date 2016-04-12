@@ -41,6 +41,22 @@
         android:layout_alignStart="@+id/angry_btn"
         android:onClick="TakeQuiz"
         />
+    <Button
+        android:id="@+id/angr"
+        android:text="Picture Quiz"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:background="@drawable/buttonshape6"
+        android:shadowColor="#9168A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:layout_below="@+id/angryb"
+        android:layout_alignLeft="@+id/angryb"
+        android:layout_alignStart="@+id/angryb"
+        android:onClick="OpenPictureQuiz"/>
 
     <Button
         android:id="@+id/angry_b"
@@ -73,22 +89,4 @@
         android:layout_below="@+id/angry_b"
         android:layout_centerHorizontal="true"
         android:onClick="OpenGallery"/>
-
-    <!--<Button-->
-        <!--android:id="@+id/inputQuiz"-->
-        <!--android:text="Input Quiz"-->
-        <!--android:textColor="#FFFFFF"-->
-        <!--android:textSize="30sp"-->
-        <!--android:layout_width="300dp"-->
-        <!--android:layout_height="75dp"-->
-        <!--android:background="@drawable/buttonshape5"-->
-        <!--android:shadowColor="#695473"-->
-        <!--android:shadowDx="0"-->
-        <!--android:shadowDy="0"-->
-        <!--android:shadowRadius="5"-->
-        <!--android:layout_below="@+id/angryb"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:onClick="InputQuiz"/>-->
-
-
 </RelativeLayout>
