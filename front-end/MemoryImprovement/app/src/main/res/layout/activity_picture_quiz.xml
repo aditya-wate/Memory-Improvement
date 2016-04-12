@@ -39,7 +39,7 @@
         android:layout_below="@+id/angry_btn"
         android:layout_alignLeft="@+id/angry_btn"
         android:layout_alignStart="@+id/angry_btn"
-        android:onClick="TakeQuiz"
+        android:onClick="PlayQuiz"
         />
 
 

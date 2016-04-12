@@ -19,4 +19,8 @@ public class PictureQuiz extends Activity {
         Intent intent = new Intent(PictureQuiz.this, PictureQuestion.class);
         startActivity(intent);
     }
+    public void PlayQuiz (View view){
+        Intent intent = new Intent(PictureQuiz.this, PlayQuiz.class);
+        startActivity(intent);
+    }
 }
