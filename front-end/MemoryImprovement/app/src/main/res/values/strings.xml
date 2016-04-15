@@ -26,4 +26,6 @@
     <string name="Calendar">Calendar</string>
     <string name="Gallery">Gallery</string>
     <string name="title_activity_signin">Sign in</string>
+    <string name="Enter_Question">Enter Your Question</string>
+    <string name="Answer_Question">Answer Your Question</string>
 </resources>

@@ -18,22 +18,22 @@
         android:theme="@style/AppTheme">
         <activity android:name=".QuizStart"></activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".LogInActivity" />
-        <activity android:name=".HomeScreen">
+        <activity android:name=".PictureQuestion"></activity>
+        <activity android:name=".PlayQuiz"></activity>
+        <activity android:name=".PictureQuiz"/>
+        <activity android:name=".LogInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".HomeScreen"/>
         <activity android:name=".TakeQuiz" />
-        <activity
-            android:name=".ViewPhotos"
-            android:label="@string/app_name"></activity>
-        <activity
-            android:name=".ViewCalendar"
-            android:label="@string/app_name">
-        </activity>
+        <activity android:name=".ViewPhotos"
+                  android:label="@string/app_name"/>
+        <activity android:name=".ViewCalendar"
+                  android:label="@string/app_name"/>
 
     </application>
 
