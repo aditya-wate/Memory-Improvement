@@ -28,6 +28,8 @@ import com.msd.frontend.mimprove.R;
 import com.msd.frontend.mimprove.interfaces.QuestionsInterfaces;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Kiran on 3/23/2016.
@@ -50,10 +52,10 @@ public class QuestionFragment extends Fragment implements QuestionsInterfaces
             questionText = (TextView)currentView.findViewById(R.id.question_mcq_title);
             RadioGroup radioGroup = (RadioGroup)currentView.findViewById(R.id.question_mcq_options);
             final MultipleChoiceQuestion currentMcq = (MultipleChoiceQuestion)questionList.get(currentPosition);
-            for(final String answer:displayQuestions(currentMcq))
+            for(final String userAnswer:displayQuestions(currentMcq))
             {
                 RadioButton radioButton = new RadioButton(getActivity());
-                radioButton.setText(answer);
+                radioButton.setText(userAnswer);
                 radioButton.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
@@ -66,7 +68,7 @@ public class QuestionFragment extends Fragment implements QuestionsInterfaces
 //                        {
                           correctAns = currentMcq.getCorrect_answer();
                      //   }
-                        if(answer.equals(correctAns))
+                        if(userAnswer.equals(correctAns))
                         {
                             corrected.put(currentPosition,true);
                         }
@@ -74,6 +76,11 @@ public class QuestionFragment extends Fragment implements QuestionsInterfaces
                         {
                             corrected.put(currentPosition,false);
                         }
+                        Map<String,String> answerMap = new HashMap<String, String>();
+                        ArrayList<String> answers = new ArrayList<String>();
+                        answers.add(correctAns);
+                        answers.add(userAnswer);
+                        mapOfAnswerQuestions.put(questionList.get(currentPosition).getQuestionText(),answers);
                     }
                 });
                 radioGroup.addView(radioButton);
@@ -94,8 +101,11 @@ public class QuestionFragment extends Fragment implements QuestionsInterfaces
                         submitted.put(currentPosition, true);
                         if (oneWord.getCorrectAnswer().toLowerCase().equals(answerFromUser.getText().toString().toLowerCase())) {
                             corrected.put(currentPosition,true);
-
                         }
+                        ArrayList<String> answersList = new ArrayList<String>();
+                        answersList.add(oneWord.getCorrectAnswer());
+                        answersList.add(answerFromUser.getText().toString());
+                        mapOfAnswerQuestions.put(questionList.get(currentPosition).getQuestionText(),answersList);
                         Toast.makeText(getActivity(), "Submitted", Toast.LENGTH_SHORT).show();
                     }
 
@@ -129,6 +139,10 @@ public class QuestionFragment extends Fragment implements QuestionsInterfaces
                     {
                         corrected.put(currentPosition,false);
                     }
+                    ArrayList<String> answers = new ArrayList<String>();
+                    answers.add(oneWord.getCorrectAnswer());
+                    answers.add(answerFromUser.getText().toString());
+                    mapOfAnswerQuestions.put(questionList.get(currentPosition).getQuestionText(),answers);
                 }
             });
         }
@@ -173,6 +187,8 @@ public class QuestionFragment extends Fragment implements QuestionsInterfaces
                     {
                         corrected.put(currentPosition,false);
                     }
+
+                    //mapOfAnswerQuestions.put(questionList.get(currentPosition).getQuestionText(),answerFromUser.getText().toString());
                 }
             });
         }

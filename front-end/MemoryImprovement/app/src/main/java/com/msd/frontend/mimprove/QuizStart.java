@@ -27,14 +27,21 @@ import com.msd.frontend.mimprove.interfaces.QuestionsInterfaces;
 import com.msd.frontend.mimprove.sdutils.*;
 import com.msd.frontend.mimprove.design.SwipeDisabledViewPager;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import cz.msebera.android.httpclient.protocol.HTTP;
 
 public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
 {
@@ -149,6 +156,19 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
 
                         //redirect to home page
 
+                        try
+                        {
+                            JSONObject jsonObject = castMapToObject();
+                            ProgressDialog progressDialog = ProgressDialog.show(QuizStart.this,"Fetching data","Loading quiz..");
+                            saveQuiz(progressDialog,jsonObject);
+                            android.util.Log.e("Parsed object",jsonObject.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            return;
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+
 
                     }
                 }).show();
@@ -207,6 +227,7 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
         final ArrayList<QuestionKP> questions = quiz.getQuestionList();
         android.util.Log.e("Questions received",""+questions.size());
         questionList.clear();
+        mapOfAnswerQuestions.clear();
         questionList.addAll(questions);
         android.util.Log.e("Questions added",""+questionList.size());
 //        corrctAnswers.clear();
@@ -217,12 +238,29 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
         pager.setCurrentItem(0);
     }
 
+    private JSONObject castMapToObject() throws JSONException
+    {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray questionsArray = new JSONArray();
+        for (Map.Entry<String, ArrayList<String>> answersMap : mapOfAnswerQuestions.entrySet())
+        {
+            JSONObject currentQuestion = new JSONObject();
+            currentQuestion.put("text",answersMap.getKey());
+            ArrayList<String> temp = answersMap.getValue();
+            currentQuestion.put("correct_answer",temp.get(0));
+            currentQuestion.put("user_answer",temp.get(1));
+            questionsArray.put(currentQuestion);
+        }
+        jsonObject.put("quiz",questionsArray);
+        return jsonObject;
+    }
+
     private void populateInputQuestionData() throws IOException, ParseException
     {
         SdUtils.copyJsonToSdCard(QuizStart.this);
 
         final ArrayList<QuestionKP> questions = createQuiz.getQuiz_Input(QuizStart.this);
-        android.util.Log.e("Questions received",""+questions.size());
+        android.util.Log.e("Questions received", "" + questions.size());
         questionList.clear();
         questionList.addAll(questions);
         android.util.Log.e("Questions added",""+questionList.size());
@@ -232,6 +270,54 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
         QuestionsAdapter questionsAdapter = new QuestionsAdapter(questions,getSupportFragmentManager());
         pager.setAdapter(questionsAdapter);
         pager.setCurrentItem(0);
+    }
+
+    private void saveQuiz(final ProgressDialog progressDialog,JSONObject objectOfAnswers) throws JSONException, UnsupportedEncodingException {
+        android.util.Log.e("Save Quiz call made", "yes");
+        AsyncHttpClient clientHandler = new AsyncHttpClient();
+       // RequestParams callParams = new RequestParams();
+        StringEntity entity = new StringEntity(objectOfAnswers.toString());
+        entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+//        client.post(context, restApiUrl, entity, "application/json",
+//                responseHandler);
+//        callParams.put("username", "test_patient");
+
+        clientHandler.post(QuizStart.this,"http://54.172.172.152/quiz/save_quiz", entity, "application/json",new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                Log.e("Response quiz succes", new String(responseBody));
+
+//                String string = new String(responseBody);
+//                String res = "" + string;
+//                org.json.JSONObject jsonObject = null;
+//                try {
+//                    jsonObject = new org.json.JSONObject(res);
+//                    UserQuiz userQuiz1 = createQuiz.getRandomisedQuiz(jsonObject);
+//                    populateData(userQuiz1);
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+
+
+                progressDialog.dismiss();
+
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Log.e("Response fail", new String(responseBody)+"\t"+statusCode);
+                progressDialog.dismiss();
+//                progressDialog.dismiss();
+//                Toast.makeText(getApplicationContext(),"Sorry there was some problem",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
