@@ -16,4 +16,6 @@ public interface QuestionsInterfaces
     ArrayList<QuestionKP> questionList = new ArrayList<>();
     Map<Integer,Boolean> submitted  = new HashMap<>();
     Map<Integer,Boolean> corrected = new HashMap<>();
+    Map<String,ArrayList<String>> mapOfAnswerQuestions = new HashMap<String,ArrayList<String>>();
+
 }
