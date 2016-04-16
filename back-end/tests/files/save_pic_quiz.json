@@ -1,0 +1,20 @@
+{
+  "pic_quiz": [
+    {
+	  "file":"binary_data"
+      "correct_answer": "Bill Murray",
+      "text": "Who is your favorite celebrity?"
+    },
+    {
+      "file":"binary_data"
+      "correct_answer": "Boston",
+      "text": "Where city is this house in?"
+    },
+    {
+      "file":"binary_data"
+      "correct_answer": "Daughter",
+      "text": "Who is this little girl?"
+    }
+  ],
+  "username": "test_patient"
+}
