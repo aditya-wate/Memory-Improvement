@@ -45,7 +45,7 @@ class mimproveGetPictureQuizTestCase(unittest.TestCase):
         """Testing the fetching of picture quiz questions for a particular user, response check"""
         with app.app_context():
             
-            username = 'test_patient'
+            username = 'test_patient2'
             #fetch the quiz
             rv = self.get_quiz(username)
 
@@ -65,7 +65,7 @@ class mimproveGetPictureQuizTestCase(unittest.TestCase):
 
             resp_quiz = resp['pic_quiz']
             #check the number of questions
-            assert len(resp_quiz) == 3
+            assert len(resp_quiz) > 3
 
     def test_quiz_verify_list(self):
         """Testing the fetching of picture quiz questions for a particular user, list verification"""
