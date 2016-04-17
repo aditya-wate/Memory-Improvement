@@ -25,8 +25,9 @@ def get_quiz():
 
 
     """
+    directory = current_app.config['IMAGE_FILE_DIRECTORY']
     con = mdb.connect(host=MYSQL_HOST, port=MYSQL_PORT,user=MYSQL_USER, passwd=MYSQL_PASSWD, db=MYSQL_DB)
-
+    
     with con:    
         username = request.form['username']
         if username == '':
@@ -34,7 +35,7 @@ def get_quiz():
         cur = con.cursor()
         resp = dict()
         quiz = list()
-        stmt = "SELECT * FROM picture pi\
+        stmt = "SELECT question_string,answer,loc FROM picture pi\
                 WHERE pi.patient_id = (SELECT p.patient_id FROM patient p, user u\
                 WHERE p.user_id = u.user_id and u.username = %s) ORDER BY RAND() LIMIT 10"
 
@@ -44,20 +45,18 @@ def get_quiz():
             resp['username'] = username
             for row in question_rows:
                 question = dict()
-                question['question_id'] = row[0]
-                question['text'] = row[2]
-                question['correct_answer'] = row[3]
-                category = row[1]
-                get_options = "SELECT c_name\
-                                FROM %s\
-                                ORDER BY RAND() LIMIT 3;"%(category)
-                cur.execute(get_options)
-                categories = cur.fetchall()
-                question['incorrect_answer1'] = categories[0][0]
-                question['incorrect_answer2'] = categories[1][0]
-                question['incorrect_answer3'] = categories[2][0]
+                question['text'] = row[0]
+                question['correct_answer'] = row[1]
+                filename = row[2]
+                try:
+                    with open(os.path.join(directory,filename), 'rb') as data_file:    
+                        data = data_file.read()
+                except IOError as io:
+                    print io
+                    abort(422)
+                question['file'] = base64.b64encode(data).decode()
                 quiz.append(question)
-            resp['quiz'] = quiz
+            resp['pic_quiz'] = quiz
             return jsonify(resp)
         else:
             return ('User not found', 204)
