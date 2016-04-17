@@ -5,10 +5,12 @@ import mimprove.views.picture
 from mimprove.models.auth import InvalidCredentials
 from models import db
 from views import login_manager
+import os
+here = os.path.dirname(__file__)
 
 def create_app():
     app = flask.Flask(__name__)
-    app.config['IMAGE_FILE_DIRECTORY'] = 'data'
+    app.config['IMAGE_FILE_DIRECTORY'] = os.path.join(here, 'data/')
     
     @app.route('/')
     def hello_world():
