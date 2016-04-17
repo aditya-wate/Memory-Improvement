@@ -10,7 +10,8 @@ DROP TABLE IF EXISTS user,
 					guardian, 
                     quiz, 
                     question,
-                    personal_info;
+                    personal_info,
+                    picture;
 
 -- Category tables to be deleted
 DROP TABLE IF EXISTS category_city, 
@@ -84,6 +85,16 @@ CREATE TABLE question (
   patient_id INT(11) NOT NULL,
   FOREIGN KEY (patient_id) REFERENCES patient (patient_id) ON DELETE CASCADE,
   PRIMARY KEY (question_id)
+);
+
+CREATE TABLE picture (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  question_string CHAR(100) NOT NULL,
+  answer CHAR(50) NOT NULL,
+  loc CHAR(100) NOT NULL,
+  patient_id INT(11) NOT NULL,
+  FOREIGN KEY (patient_id) REFERENCES patient (patient_id) ON DELETE CASCADE,
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE personal_info (
