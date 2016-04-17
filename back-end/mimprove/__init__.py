@@ -1,6 +1,7 @@
 import flask
 from flask import jsonify
 import mimprove.views.quiz
+import mimprove.views.picture
 from mimprove.models.auth import InvalidCredentials
 from models import db
 from views import login_manager
