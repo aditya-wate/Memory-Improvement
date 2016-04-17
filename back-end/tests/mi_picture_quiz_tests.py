@@ -104,7 +104,7 @@ class mimproveGetPictureQuizTestCase(unittest.TestCase):
                 assert 'file' in question
 
     def test_null_user(self):
-        """Testing the fetching of quiz questions for a blank username"""
+        """Testing the fetching of picture quiz questions for a blank username"""
         with app.app_context():
             
             username = ""
@@ -115,7 +115,7 @@ class mimproveGetPictureQuizTestCase(unittest.TestCase):
             assert rv.status_code == 400
 
     def test_invalid_user(self):
-        """Testing the fetching of quiz questions for an invalid user"""
+        """Testing the fetching of picture quiz questions for an invalid user"""
         with app.app_context():
             
             username = "invalid"
@@ -171,7 +171,7 @@ class mimproveSavePictureQuizTestCase(unittest.TestCase):
             resp = json.loads(rv.data)
             
             #check if a valid response
-            assert resp['username'] == 'test_patient'
+            assert resp['username'] == 'test_patient2'
 
             assert resp['result'] == 'save_successful'
 
