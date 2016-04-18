@@ -65,7 +65,7 @@ class mimproveGetPictureQuizTestCase(unittest.TestCase):
 
             resp_quiz = resp['pic_quiz']
             #check the number of questions
-            assert len(resp_quiz) > 3
+            assert len(resp_quiz) > 0
 
     def test_quiz_verify_list(self):
         """Testing the fetching of picture quiz questions for a particular user, list verification"""
