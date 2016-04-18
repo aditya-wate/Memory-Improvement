@@ -16,7 +16,7 @@ def get_quiz():
 
     - username: the user for which the questions are to be fetched
 
-    The response is a json dictionary which contains the questions with the possible and the correct answers.
+    Reponse contains a json of questions and answers with the respective pictures in base64 encoding
 
     Errors:
 
@@ -152,14 +152,13 @@ def save_quiz():
 @picture_view.route('/get_pics', methods=['POST'])
 def get_pics():
     """
-    Return a quiz for the user in the request
+    Return a list of pictures for a user
 
     URL: /picture/get_pics
     POST parameters:
 
-    - username: the user for which the questions are to be fetched
+    - username: the user for which the pictures are to be fetched. The pictures are fetched in base64 encode
 
-    The response is a json dictionary which contains the questions with the possible and the correct answers.
 
     Errors:
 
@@ -177,29 +176,25 @@ def get_pics():
             abort(400)
         cur = con.cursor()
         resp = dict()
-        quiz = list()
-        stmt = "SELECT question_string,answer,loc FROM picture pi\
+        pics = list()
+        stmt = "SELECT loc FROM picture pi\
                 WHERE pi.patient_id = (SELECT p.patient_id FROM patient p, user u\
-                WHERE p.user_id = u.user_id and u.username = %s) ORDER BY RAND() LIMIT 10"
+                WHERE p.user_id = u.user_id and u.username = %s) ORDER BY RAND() LIMIT 20"
 
         row_count = cur.execute(stmt,[username])
         if row_count > 0:
-            question_rows = cur.fetchall()
+            rows = cur.fetchall()
             resp['username'] = username
-            for row in question_rows:
-                question = dict()
-                question['text'] = row[0]
-                question['correct_answer'] = row[1]
-                filename = row[2]
+            for row in rows:
+                filename = row[0]
                 try:
                     with open(os.path.join(directory,filename), 'rb') as data_file:    
                         data = data_file.read()
                 except IOError as io:
                     print io
                     abort(422)
-                question['file'] = base64.b64encode(data).decode()
-                quiz.append(question)
-            resp['pic_quiz'] = quiz
+                pics.append(base64.b64encode(data).decode())
+            resp['pictures'] = pics
             return jsonify(resp)
         else:
             return ('User not found', 204)
