@@ -58,7 +58,7 @@ def get_quiz():
                 cur.execute(get_options)
                 categories = cur.fetchall()
                 category_list = [categories[0][0],categories[1][0],categories[2][0],categories[3][0]]
-                if question['correct_answer'] is in category_list:
+                if question['correct_answer'] in category_list:
                     category_list.remove(question['correct_answer'])
                 question['incorrect_answer1'] = category_list[0]
                 question['incorrect_answer2'] = category_list[1]
