@@ -28,7 +28,16 @@ def create_app():
         response.status_code = error.status_code
         return response
 
+    @app.errorhandler(400)
+    def custom400(error):
+        response = jsonify({'message': error.description})
+        return response, 400
 
+    @app.errorhandler(500)
+    def custom500(error):
+        response = jsonify({'message': error.description})
+        return response, 500
+    
     return app
 
 

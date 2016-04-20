@@ -30,7 +30,7 @@ def get_quiz():
     with con:    
         username = request.form['username']
         if username == '':
-            abort(400)
+            abort(400, "Null Username")
         cur = con.cursor()
         resp = dict()
         quiz = list()
@@ -96,7 +96,7 @@ def save_quiz():
         content = request.json
         username = content['username']
         if username == "":
-            abort(400)
+            abort(400, "Null Username")
 
         cur = con.cursor()
         
@@ -213,7 +213,7 @@ def save_info():
         content = request.json
         username = content['username']
         if username == "":
-            abort(400)
+            abort(400, "Null Username")
 
         cur = con.cursor()
         

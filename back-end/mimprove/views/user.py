@@ -52,4 +52,4 @@ def login():
             except Exception as e:
                 raise auth.InvalidCredentials('Invalid Credentials', status_code=403)
         else:
-            abort(204,'Invalid User')
+            return ('User not found', 204)
