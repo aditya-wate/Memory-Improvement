@@ -542,19 +542,19 @@ INSERT INTO personal_info VALUES(16,
 INSERT INTO picture VALUES(1,
 							'Who is your favorite celebrity?',
                             'Bill Murray',
-                            'aa3ffb50-4924-451b-95f5-2717f96991ef.jpg',
+                            'a3b0c624-9250-47c6-a7a2-4918b7964042.jpg',
                             2);
                             
 INSERT INTO picture VALUES(2, 
 							'Who is this little girl?', 
                             'Daughter', 
-                            '10e21d6d-0cb7-4f26-a407-1dce113b9bf9.jpg', 
+                            '0c4de627-924e-418f-ae9a-91dd95328d70.jpg', 
                             2);
                             
 INSERT INTO picture VALUES(3, 
 							'Which city is this house in?', 
                             'New York', 
-                            '9b89461b-19d2-4191-b4a4-e8d441287874.jpg',
+                            'ef5c2e11-e5a6-4297-9319-5e9de83b6725.jpg',
                             2);
                             
 COMMIT;
