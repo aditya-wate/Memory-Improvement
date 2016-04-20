@@ -167,7 +167,7 @@ def get_info():
         
         try:
             row_count = cur.execute(personal_info)
-        except MySQLdb.Error, e:
+        except mdb.Error, e:
             try:
                 print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
             except IndexError:
@@ -222,7 +222,7 @@ def save_info():
 
         try:
             row_count = cur.execute(stmt_patient,[username])
-        except MySQLdb.Error, e:
+        except mdb.Error, e:
             try:
                 print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
             except IndexError:
@@ -291,7 +291,7 @@ def get_history():
         
         try:
             row_count = cur.execute(hist_stmt,[username])
-        except MySQLdb.Error, e:
+        except mdb.Error, e:
             try:
                 print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
             except IndexError:

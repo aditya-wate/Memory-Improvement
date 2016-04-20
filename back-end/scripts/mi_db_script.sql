@@ -387,19 +387,19 @@ INSERT INTO category_phone VALUES (4, "Blackberry");
 -- Insertion of test data 'test_password'
 INSERT INTO user VALUES (1, 
 						'test_patient', 
-						'$2a$08$trgwUanfBAPZCYSueQauP.CJS2WTNBYjGxYzbZIXfai2SuFFRDh0K',
+						'$2a$12$G8mqNEqTgdHo.fzfCprTk.L5zI4NPIF92pCD3.Nl1Y.rWZvJW0UWa',
                         'John',
                         'Doe');
 
 INSERT INTO user VALUES (2, 
 						'test_guardian', 
-						'$2a$08$trgwUanfBAPZCYSueQauP.CJS2WTNBYjGxYzbZIXfai2SuFFRDh0K',
+						'$2a$12$G8mqNEqTgdHo.fzfCprTk.L5zI4NPIF92pCD3.Nl1Y.rWZvJW0UWa',
                         'Jane',
                         'Doe');
                         
 INSERT INTO user VALUES (3, 
 						'test_patient2', 
-						'$2a$08$trgwUanfBAPZCYSueQauP.CJS2WTNBYjGxYzbZIXfai2SuFFRDh0K',
+						'$2a$12$G8mqNEqTgdHo.fzfCprTk.L5zI4NPIF92pCD3.Nl1Y.rWZvJW0UWa',
                         'Bob',
                         'Dylan');
 

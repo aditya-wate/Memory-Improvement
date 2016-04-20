@@ -98,7 +98,7 @@ def save_quiz():
 
         try:
             row_count = cur.execute(stmt_patient,[username])
-        except MySQLdb.Error, e:
+        except mdb.Error, e:
             try:
                 print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
             except IndexError:
