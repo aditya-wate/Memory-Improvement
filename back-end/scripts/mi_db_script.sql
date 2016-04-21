@@ -1,7 +1,7 @@
 DROP SCHEMA IF EXISTS memory_improve;
 CREATE SCHEMA memory_improve;
 USE memory_improve;
-SET AUTOCOMMIT=1;
+SET AUTOCOMMIT=0;
 
 SELECT 'CREATING SCHEMA STRUCTURE' as 'INFO';
 
@@ -47,6 +47,8 @@ CREATE TABLE user (
   password_hash CHAR(61) NOT NULL,
   first_name CHAR(30) NOT NULL,
   last_name CHAR(30) NOT NULL,
+  dob DATE NOT NULL,
+  gender CHAR(1),
   PRIMARY KEY (user_id)
 );
 
@@ -389,19 +391,25 @@ INSERT INTO user VALUES (1,
 						'test_patient', 
 						'$2a$12$G8mqNEqTgdHo.fzfCprTk.L5zI4NPIF92pCD3.Nl1Y.rWZvJW0UWa',
                         'John',
-                        'Doe');
+                        'Doe',
+                        '1986-07-14',
+                        'M');
 
 INSERT INTO user VALUES (2, 
 						'test_guardian', 
 						'$2a$12$G8mqNEqTgdHo.fzfCprTk.L5zI4NPIF92pCD3.Nl1Y.rWZvJW0UWa',
                         'Jane',
-                        'Doe');
+                        'Doe',
+                        '1970-12-23',
+                        'F');
                         
 INSERT INTO user VALUES (3, 
 						'test_patient2', 
 						'$2a$12$G8mqNEqTgdHo.fzfCprTk.L5zI4NPIF92pCD3.Nl1Y.rWZvJW0UWa',
                         'Bob',
-                        'Dylan');
+                        'Dylan',
+                        '1976-09-22',
+                        'M');
 
 -- guardian for user 1
 INSERT INTO guardian VALUES (1,2);

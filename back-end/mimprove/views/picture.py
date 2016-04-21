@@ -2,7 +2,6 @@ import flask, json, os, base64, uuid
 from flask import request, abort, jsonify, current_app
 import MySQLdb as mdb
 from mimprove.views import *
-from datetime import datetime
 
 picture_view = flask.Blueprint('picture', __name__)
 
