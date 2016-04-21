@@ -7,11 +7,14 @@ import android.view.View;
 
 public class HomeScreen extends AppCompatActivity
 {
+    static String userName="";
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+        Intent intent=getIntent();
+        userName=intent.getStringExtra("username");
         //createQuiz.getServerData();
     }
     public void OpenGallery(View view){

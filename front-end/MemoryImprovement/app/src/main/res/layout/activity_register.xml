@@ -50,6 +50,5 @@
         android:layout_below="@+id/password"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="52dp"
-        android:onClick="HomeScreen"
         />
 </RelativeLayout>
