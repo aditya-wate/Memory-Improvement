@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -40,6 +41,7 @@ public class createQuiz
 
 	public static ArrayList<QuestionKP> randomQuestionList = new ArrayList<>();
 	public static UserQuiz userQuiz;
+	public static ArrayList<QuestionKP> input_QuestionList = new ArrayList<QuestionKP>();
 
 	public static UserQuiz getRandomisedQuiz(org.json.JSONObject jsonObject) throws IOException, ParseException, JSONException {
 //	   FileReader reader = new FileReader(QuizStart.this.getCacheDir()+"/quizJson.json");
@@ -96,30 +98,47 @@ public class createQuiz
 
 	public static ArrayList<QuestionKP> getQuiz_Input(Context context) throws IOException, ParseException
 	{
-//
+		// make get request here to get the json
+		android.util.Log.e("Input Quiz Call made", "yes");
+		AsyncHttpClient clientHandler = new AsyncHttpClient();
 
-		FileReader reader = new FileReader(context.getCacheDir()+"/get_info.json"); // fileName for questions JSON
-		JSONObject jsonObject = (JSONObject) new JSONParser().parse(reader);
-		UserQuiz userQuiz = new UserQuiz();
-		String userName = (String) jsonObject.get("username");
+	//	ArrayList<QuestionKP> input_QuestionList ;
+				clientHandler.get("http://54.172.172.152/quiz/get_info", new AsyncHttpResponseHandler() {
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
-		String quiz = jsonObject.get("info").toString();    // get questions
-//	   System.out.println("Quiz:" + quiz);
-//		userQuiz.setUserName(userName);
+			//	Log.e("Response success", new String(responseBody));
 
+				String string = new String(responseBody);
+				String res = "" + string;
+				org.json.JSONObject jsonObject = null;
+			//	Log.e("Response Received", res);
 
-		Gson gson = new Gson();
-		ArrayList<QuestionKP> questionList;
-		questionList = gson.fromJson(quiz, new TypeToken<List<QuestionKP>>() {
-		}.getType());
+				try
+				{
+					jsonObject = new org.json.JSONObject(res);
+				//	ArrayList<QuestionKP> questionList;
+                    Log.e("JSON Object", jsonObject.toString());
+					String quiz = jsonObject.get("info").toString();    // get questions
+                    Log.e("QUIZ String", quiz);
+					Gson gson = new Gson();
+					input_QuestionList = gson.fromJson(quiz, new TypeToken<List<QuestionKP>>(){}.getType());
 
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
 
+			}
 
-//		ArrayList<QuestionKP> questionObjects = createQuestions(questionList);
+			@Override
+			public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+				Log.e("Response fail", new String(responseBody));
+			//	progressDialog.dismiss();
+			//	Toast.makeText(getApplicationContext(),"Sorry there was some problem",Toast.LENGTH_SHORT).show();
+			}
+		});
 
-
-//		userQuiz.setQuestionList(randomQuestionList);
-		return questionList;
+		return input_QuestionList;
 	}
 
 //	private static ArrayList<QuestionKP> createQuestions(List<String> questionList) {

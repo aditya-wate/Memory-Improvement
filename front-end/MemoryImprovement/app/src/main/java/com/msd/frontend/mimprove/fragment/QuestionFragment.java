@@ -76,7 +76,6 @@ public class QuestionFragment extends Fragment implements QuestionsInterfaces
                         {
                             corrected.put(currentPosition,false);
                         }
-                        Map<String,String> answerMap = new HashMap<String, String>();
                         ArrayList<String> answers = new ArrayList<String>();
                         answers.add(correctAns);
                         answers.add(userAnswer);
@@ -150,7 +149,7 @@ public class QuestionFragment extends Fragment implements QuestionsInterfaces
         {
             currentView = inflater.inflate(R.layout.activity_question_missing_statement,null);
             questionText = (TextView)currentView.findViewById(R.id.question_missing_statement_title);
-//          final QuestionKP oneWord = questionList.get(currentPosition);
+            final QuestionKP oneWord =(QuestionKP) questionList.get(currentPosition);
             final EditText answerFromUser = (EditText) currentView.findViewById(R.id.question_missing_statement_text);
             answerFromUser.setOnEditorActionListener(new EditText.OnEditorActionListener() {
                 @Override
@@ -158,6 +157,10 @@ public class QuestionFragment extends Fragment implements QuestionsInterfaces
                     if (actionId == EditorInfo.IME_ACTION_DONE) {
 
                         submitted.put(currentPosition, true);
+                        ArrayList<String> answersList = new ArrayList<String>();
+                        answersList.add(answerFromUser.getText().toString());
+                        answersList.add(oneWord.getCategory());
+                        mapOfAnswerQuestions.put(questionList.get(currentPosition).getQuestionText(),answersList);
                         Toast.makeText(getActivity(), "Submitted", Toast.LENGTH_SHORT).show();
                     }
 
@@ -187,7 +190,10 @@ public class QuestionFragment extends Fragment implements QuestionsInterfaces
                     {
                         corrected.put(currentPosition,false);
                     }
-
+                    ArrayList<String> answersList = new ArrayList<String>();
+                    answersList.add(answerFromUser.getText().toString());
+                    answersList.add(oneWord.getCategory());
+                    mapOfAnswerQuestions.put(questionList.get(currentPosition).getQuestionText(),answersList);
                     //mapOfAnswerQuestions.put(questionList.get(currentPosition).getQuestionText(),answerFromUser.getText().toString());
                 }
             });
