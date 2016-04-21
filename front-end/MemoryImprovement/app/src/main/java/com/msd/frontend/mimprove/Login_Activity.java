@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 ;import cz.msebera.android.httpclient.Header;
 
 /**
- * Created by surindersokhal on 1/30/16.
+ * Created by saahil on 1/30/16.
  */
 public class Login_Activity extends Activity implements View.OnClickListener {
 
@@ -79,8 +79,8 @@ public class Login_Activity extends Activity implements View.OnClickListener {
             ArrayList<String> data = new ArrayList<>();
             data.add(userName.getText().toString());
             data.add(password.getText().toString());
-            welcomeActivity();
-           // getDataFromServer(dialog,userName.getText().toString(),password.getText().toString());
+            //welcomeActivity();
+            getDataFromServer(dialog,userName.getText().toString(),password.getText().toString());
 
         } else {
             Intent intent = new Intent(Login_Activity.this, RegisterActivity.class);
@@ -112,42 +112,48 @@ public class Login_Activity extends Activity implements View.OnClickListener {
 
     public void welcomeActivity() {
         Intent intent = new Intent(Login_Activity.this, HomeScreen.class);
+        intent.putExtra("username",userName.getText().toString());
         startActivity(intent);
     }
 
-    private void getDataFromServer(final ProgressDialog progressDialog,String username,String password) {
+    private void getDataFromServer(final ProgressDialog progressDialog,String username, String password) {
         android.util.Log.e("Call made", "yes");
         AsyncHttpClient clientHandler = new AsyncHttpClient();
         RequestParams callParams = new RequestParams();
-        callParams.put(username, password);
-        String url = "loginservlet";
+        callParams.put("username", username);
+        callParams.put("password", password);
+        String url = "user/login";
 
 
         clientHandler.post("http://54.172.172.152/" + url, callParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
-                Log.e("Response succes", new String(responseBody));
+                if (responseBody != null) {
+                    Log.e("Response succes", new String(responseBody));
 
-                String string = new String(responseBody);
-                String res = "" + string;
-                org.json.JSONObject jsonObject = null;
-                try {
-                    jsonObject = new org.json.JSONObject(res);
-                    if (jsonObject.getString("success").equalsIgnoreCase("1")) {
-                        progressDialog.dismiss();
-                        welcomeActivity();
-                    } else {
-                        buildAlertDialog("Error validating User", "Invalid username/password");
+                    String string = new String(responseBody);
+                    String res = "" + string;
+                    org.json.JSONObject jsonObject = null;
+                    try {
+                        jsonObject = new org.json.JSONObject(res);
+                        if (jsonObject.getString("message").equalsIgnoreCase("success")) {
+                            progressDialog.dismiss();
+                            welcomeActivity();
+                        } else {
+                            buildAlertDialog("Error validating User", "Invalid username/password");
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+
+                    progressDialog.dismiss();
+
+                } else {
+                    buildAlertDialog("Error validating User", "Invalid username/password");
                 }
-
-
-                progressDialog.dismiss();
-
             }
 
 

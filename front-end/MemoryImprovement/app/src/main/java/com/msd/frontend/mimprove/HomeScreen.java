@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-
 import com.msd.frontend.mimprove.sdutils.NameUtils;
 
 public class HomeScreen extends AppCompatActivity
@@ -15,12 +14,8 @@ public class HomeScreen extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-
-        //NameUtils.saveUserName(this,"test_patient");
-
-     //   Intent intent=getIntent();
-     //   userName=intent.getStringExtra("username");
-
+        Intent intent=getIntent();
+        userName=intent.getStringExtra("username");
         //createQuiz.getServerData();
     }
     public void OpenGallery(View view){
@@ -36,7 +31,6 @@ public class HomeScreen extends AppCompatActivity
         startActivity(intent);
     }
     public void InputQuiz(View view){
-       // Intent intent = new Intent(HomeScreen.this,PictureQuestion.class);
         Intent intent = new Intent(HomeScreen.this,QuizStart.class);
         intent.putExtra("isInputQuestion",true);
         startActivity(intent);

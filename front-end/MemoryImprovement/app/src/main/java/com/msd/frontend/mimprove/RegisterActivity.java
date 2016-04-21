@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -21,7 +22,8 @@ import cz.msebera.android.httpclient.Header;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     static RegisterActivity activity=null;
-    EditText email,password,phone;
+    EditText email,password,phone,FN,LN,Y,M,D;;
+    Spinner gender;
     Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
         phone = (EditText) findViewById(R.id.phone);
+        FN=(EditText) findViewById(R.id.firstName);
+        LN=(EditText) findViewById(R.id.lastName);
+        Y=(EditText) findViewById(R.id.year);
+        M=(EditText) findViewById(R.id.month);
+        D=(EditText) findViewById(R.id.day);
+        gender=(Spinner) findViewById(R.id.gender);
 
         button.setOnClickListener(this);
     }
@@ -59,8 +67,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         android.util.Log.e("Call made", "yes");
         AsyncHttpClient clientHandler = new AsyncHttpClient();
         RequestParams callParams = new RequestParams();
-        callParams.put("username", "test_patient");
-        String url = "loginservlet";
+        callParams.put("username", email.getText().toString());
+        callParams.put("password", password.getText().toString());
+        callParams.put("phone", phone.getText().toString());
+        callParams.put("firstname", FN.getText().toString());
+        callParams.put("lastname", LN.getText().toString());
+        callParams.put("dob", Y.getText().toString() + "-" + M.getText().toString() + "-" + D.getText().toString());
+        callParams.put("gender", gender.getSelectedItem().toString());
+
+        String url = "user/register";
 
 
         clientHandler.post("http://54.172.172.152/" + url, callParams, new AsyncHttpResponseHandler() {
@@ -74,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 org.json.JSONObject jsonObject = null;
                 try {
                     jsonObject = new org.json.JSONObject(res);
-                    if (jsonObject.getString("success").equalsIgnoreCase("1")) {
+                    if (jsonObject.getString("message").equalsIgnoreCase("success")) {
                         progressDialog.dismiss();
                         welcomeActivity();
                     } else {
@@ -120,6 +135,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
     public void welcomeActivity() {
         Intent intent = new Intent(RegisterActivity.this, HomeScreen.class);
+        intent.putExtra("username",email.getText().toString());
         startActivity(intent);
     }
 

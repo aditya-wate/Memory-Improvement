@@ -98,21 +98,15 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
     private void initListeners()
     {
 
-        nextImage.setOnClickListener(new View.OnClickListener()
-        {
+        nextImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                if(submitted.containsKey(currentPosition))
-                {
-                    if(submitted.get(currentPosition))
-                    {
-                        pager.setCurrentItem(currentPosition+1);
-                    }
-                    else
-                    {
+            public void onClick(View view) {
+                if (submitted.containsKey(currentPosition)) {
+                    if (submitted.get(currentPosition)) {
+                        pager.setCurrentItem(currentPosition + 1);
+                    } else {
                         pager.setSelected(true);
-                        Toast.makeText(getApplicationContext(),"Please answer the question",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Please answer the question", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -121,39 +115,35 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
         });
 
 
-        previousImage.setOnClickListener(new View.OnClickListener()
-        {
+        previousImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                pager.setCurrentItem(currentPosition-1);
+            public void onClick(View view) {
+                pager.setCurrentItem(currentPosition - 1);
             }
         });
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // int count = 0;
+                // int count = 0;
                 for (Map.Entry<Integer, Boolean> booleanEntry : corrected.entrySet()) {
                     if (booleanEntry.getValue()) {
                         count++;
                     }
                 }
-                if(MultipleChoiceQuestion.class.isInstance(questionList.get(0)) || OneWord.class.isInstance(questionList.get(0)))
-                {
+                if (MultipleChoiceQuestion.class.isInstance(questionList.get(0)) || OneWord.class.isInstance(questionList.get(0))) {
                     new AlertDialog.Builder(QuizStart.this).setTitle("Thanks for submitting").setMessage("You have answered " + count + " out of " + questionList.size()).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
 
                             //redirect to home page
-                            try
-                            {
+                            try {
                                 JSONObject jsonObject = castMapToObject();
-                                ProgressDialog progressDialog = ProgressDialog.show(QuizStart.this,"Saving Data","Please wait..");
-                                saveQuiz(progressDialog,jsonObject);
-                                android.util.Log.e("Parsed object",jsonObject.toString());
+                                ProgressDialog progressDialog = ProgressDialog.show(QuizStart.this, "Saving Data", "Please wait..");
+                                saveQuiz(progressDialog, jsonObject);
+                                android.util.Log.e("Parsed object", jsonObject.toString());
 
-                                Intent intent = new Intent(getApplicationContext(),HomeScreen.class);
+                                Intent intent = new Intent(getApplicationContext(), HomeScreen.class);
                                 //  Intent intent = new Intent(QuizStart.this,HomeScreen.class);
                                 startActivity(intent);
 
@@ -166,21 +156,19 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
 
                         }
                     }).show();
-                }else
-                {
+                } else {
                     new AlertDialog.Builder(QuizStart.this).setTitle("Thanks for submitting").setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
 
                             //redirect to home page
-                            try
-                            {
+                            try {
                                 JSONObject jsonObject = castInputMapToObject();
-                                ProgressDialog progressDialog = ProgressDialog.show(QuizStart.this,"Saving Data","Please wait..");
-                                saveInputQuiz(progressDialog,jsonObject);
-                                android.util.Log.e("Parsed object",jsonObject.toString());
+                                ProgressDialog progressDialog = ProgressDialog.show(QuizStart.this, "Saving Data", "Please wait..");
+                                saveInputQuiz(progressDialog, jsonObject);
+                                android.util.Log.e("Parsed object", jsonObject.toString());
 
-                                Intent intent = new Intent(getApplicationContext(),HomeScreen.class);
+                                Intent intent = new Intent(getApplicationContext(), HomeScreen.class);
                                 //  Intent intent = new Intent(QuizStart.this,HomeScreen.class);
                                 startActivity(intent);
 
@@ -256,7 +244,7 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
         android.util.Log.e("Questions added",""+questionList.size());
 //        corrctAnswers.clear();
         corrected.clear();
-        pageNo.setText("1 of "+questionList.size());
+        pageNo.setText("1 of " + questionList.size());
         QuestionsAdapter questionsAdapter = new QuestionsAdapter(questions,getSupportFragmentManager());
         pager.setAdapter(questionsAdapter);
         pager.setCurrentItem(0);
@@ -294,14 +282,14 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
             currentQuestion.put("category",temp.get(1));
             questionsArray.put(currentQuestion);
         }
-        jsonObject.put("info",questionsArray);
-        jsonObject.put("username",NameUtils.getUserName(QuizStart.this));
+        jsonObject.put("info", questionsArray);
+        jsonObject.put("username", NameUtils.getUserName(QuizStart.this));
         return jsonObject;
     }
 
     private void populateInputQuestionData() throws IOException, ParseException
     {
-       // SdUtils.copyJsonToSdCard(QuizStart.this);
+        // SdUtils.copyJsonToSdCard(QuizStart.this);
 
         final ArrayList<QuestionKP> questions = createQuiz.getQuiz_Input(QuizStart.this);
         android.util.Log.e("Questions received", "" + questions.size());
@@ -327,7 +315,7 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
 //                responseHandler);
 //        callParams.put("username", "test_patient");
 
-        clientHandler.post(QuizStart.this,"http://54.172.172.152/quiz/save_info", entity, "application/json",new AsyncHttpResponseHandler() {
+        clientHandler.post(QuizStart.this, "http://54.172.172.152/quiz/save_info", entity, "application/json", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
@@ -357,7 +345,7 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Log.e("Response fail", new String(responseBody)+"\t"+statusCode);
+                Log.e("Response fail", new String(responseBody) + "\t" + statusCode);
                 progressDialog.dismiss();
 //                progressDialog.dismiss();
 //                Toast.makeText(getApplicationContext(),"Sorry there was some problem",Toast.LENGTH_SHORT).show();
@@ -368,7 +356,7 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
     private void saveQuiz(final ProgressDialog progressDialog,JSONObject objectOfAnswers) throws JSONException, UnsupportedEncodingException {
         android.util.Log.e("Save Quiz call made", "yes");
         AsyncHttpClient clientHandler = new AsyncHttpClient();
-       // RequestParams callParams = new RequestParams();
+        // RequestParams callParams = new RequestParams();
         StringEntity entity = new StringEntity(objectOfAnswers.toString());
         entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 //        client.post(context, restApiUrl, entity, "application/json",
@@ -420,7 +408,7 @@ public class QuizStart extends AppCompatActivity implements QuestionsInterfaces
         AsyncHttpClient clientHandler = new AsyncHttpClient();
         RequestParams callParams = new RequestParams();
         callParams.put("username", NameUtils.getUserName(QuizStart.this));
-     //   callParams.put("username", "test_patient");
+        //   callParams.put("username", "test_patient");
 
         clientHandler.post("http://54.172.172.152/quiz/get_quiz", callParams, new AsyncHttpResponseHandler() {
             @Override

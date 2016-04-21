@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.zip.Deflater;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -30,7 +32,14 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import cz.msebera.android.httpclient.protocol.HTTP;
 
 //import com.example.takeimage.R;
 
@@ -63,6 +72,7 @@ activity=this;
         question=(EditText)(findViewById(R.id.editText));
         answer=(EditText)(findViewById(R.id.editText2));
         ivImage = (ImageView) findViewById(R.id.ivImage);
+        ivImage.setAdjustViewBounds(true);
         submit=(Button)(findViewById(R.id.submit));
         submit.setOnClickListener(this);
     }
@@ -72,31 +82,55 @@ activity=this;
         if(view.getId()==R.id.btnSelectPhoto){
             selectImage();
         }else if(view.getId()==R.id.submit){
+            try{
             if(isImageSelected){
             ProgressDialog dialog=new ProgressDialog(this);
             dialog.setMessage("Please wait while you photo and question is being uploaded");
             dialog.show();
-                getDataFromServer(dialog, Base64.encodeToString(image, Base64.URL_SAFE),question.getText().toString(),
-                answer.getText().toString());
+                getDataFromServer(dialog, Base64.encodeToString(image, Base64.DEFAULT /*| Base64.URL_SAFE*/), question.getText().toString(),
+                        answer.getText().toString());
                 return;
             }
             Toast.makeText(getApplicationContext(), "Please select a photo before submitting", Toast.LENGTH_SHORT).show();
+        }catch(Exception e){
+            e.printStackTrace();}
+
         }
     }
 
 
-    private void getDataFromServer(final ProgressDialog progressDialog,String image,String question,String answer) {
+    public JSONObject getJSONObject(String image,String ques,String ans){
+        try{
+        JSONObject object=new JSONObject();
+        object.put("username",HomeScreen.userName);
+        JSONArray array=new JSONArray();
+        JSONObject obj=new JSONObject();
+            obj.put("text",ques);
+        obj.put("correct_answer",ans);
+            obj.put("file",image);
+
+            array.put(obj);
+         object.put("pic_quiz",array);
+            return object;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+return null;
+    }
+    private void getDataFromServer(final ProgressDialog progressDialog,String image,String question,String answer) throws JSONException, UnsupportedEncodingException {
         android.util.Log.e("Call made", "yes");
         AsyncHttpClient clientHandler = new AsyncHttpClient();
-        RequestParams callParams = new RequestParams();
-        callParams.put("username",HomeScreen.userName);
-        callParams.put("image",image);
-        callParams.put("question",question);
-        callParams.put("answer", answer);
-        String url="";
+        JSONObject object=getJSONObject(image,question,answer);
+        StringEntity entity = new StringEntity(object.toString());
 
+        entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        String url="picture/save_quiz";
 
-        clientHandler.post("http://54.172.172.152/" + url, callParams, new AsyncHttpResponseHandler() {
+         Log.e("Saahil",object.toString());
+
+        clientHandler.post(PictureQuestion.this,"http://54.172.172.152/" + url, entity,"application/json", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
@@ -107,8 +141,9 @@ activity=this;
                 org.json.JSONObject jsonObject = null;
                 try {
                     jsonObject = new org.json.JSONObject(res);
-                    if (jsonObject.getString("success").equalsIgnoreCase("1")) {
+                    if (jsonObject.getString("result").equalsIgnoreCase("save_successful")) {
                         progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "Question uploaded successfully", Toast.LENGTH_SHORT).show();
                        finish();
                     } else {
                         buildAlertDialog("Error saving image", "Unable to save the image. Please try again");
@@ -197,9 +232,11 @@ activity=this;
     private void onCaptureImageResult(Intent data) {
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         isImageSelected=true;
         image=bytes.toByteArray();
+        Deflater deflater = new Deflater();
+        deflater.setInput(image);
         ivImage.setImageBitmap(thumbnail);
     }
 
@@ -228,10 +265,12 @@ activity=this;
         bm = BitmapFactory.decodeFile(selectedImagePath, options);
 
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        bm.compress(Bitmap.CompressFormat.JPEG, 10, bytes);
 
         image=bytes.toByteArray();
         isImageSelected=true;
+        Deflater deflater = new Deflater();
+        deflater.setInput(image);
         ivImage.setImageBitmap(bm);
     }
 

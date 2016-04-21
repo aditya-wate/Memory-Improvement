@@ -102,25 +102,25 @@ public class createQuiz
 		android.util.Log.e("Input Quiz Call made", "yes");
 		AsyncHttpClient clientHandler = new AsyncHttpClient();
 
-	//	ArrayList<QuestionKP> input_QuestionList ;
-				clientHandler.get("http://54.172.172.152/quiz/get_info", new AsyncHttpResponseHandler() {
+		//	ArrayList<QuestionKP> input_QuestionList ;
+		clientHandler.get("http://54.172.172.152/quiz/get_info", new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
-			//	Log.e("Response success", new String(responseBody));
+				//	Log.e("Response success", new String(responseBody));
 
 				String string = new String(responseBody);
 				String res = "" + string;
 				org.json.JSONObject jsonObject = null;
-			//	Log.e("Response Received", res);
+				//	Log.e("Response Received", res);
 
 				try
 				{
 					jsonObject = new org.json.JSONObject(res);
-				//	ArrayList<QuestionKP> questionList;
-                    Log.e("JSON Object", jsonObject.toString());
+					//	ArrayList<QuestionKP> questionList;
+					Log.e("JSON Object", jsonObject.toString());
 					String quiz = jsonObject.get("info").toString();    // get questions
-                    Log.e("QUIZ String", quiz);
+					Log.e("QUIZ String", quiz);
 					Gson gson = new Gson();
 					input_QuestionList = gson.fromJson(quiz, new TypeToken<List<QuestionKP>>(){}.getType());
 
@@ -133,8 +133,8 @@ public class createQuiz
 			@Override
 			public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 				Log.e("Response fail", new String(responseBody));
-			//	progressDialog.dismiss();
-			//	Toast.makeText(getApplicationContext(),"Sorry there was some problem",Toast.LENGTH_SHORT).show();
+				//	progressDialog.dismiss();
+				//	Toast.makeText(getApplicationContext(),"Sorry there was some problem",Toast.LENGTH_SHORT).show();
 			}
 		});
 
@@ -166,7 +166,7 @@ public class createQuiz
 			if(number % 2 == 0)
 				randomQuestionList.add(randomQuestion);
 			else
-			createOneWordQuestion(randomQuestion);
+				createOneWordQuestion(randomQuestion);
 		}
 //		return randomQuestionList;
 	}

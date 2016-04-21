@@ -66,8 +66,8 @@ public class QuestionFragment extends Fragment implements QuestionsInterfaces
                         String correctAns = "";
 //                        for(String temp:currentMcq.getCorrectAnswers())
 //                        {
-                          correctAns = currentMcq.getCorrect_answer();
-                     //   }
+                        correctAns = currentMcq.getCorrect_answer();
+                        //   }
                         if(userAnswer.equals(correctAns))
                         {
                             corrected.put(currentPosition,true);
@@ -217,7 +217,7 @@ public class QuestionFragment extends Fragment implements QuestionsInterfaces
 
 //        for(String temp1:multipleChoiceQuestion.getCorrectAnswers())
 //        {
-            answers.add(multipleChoiceQuestion.getCorrect_answer());
+        answers.add(multipleChoiceQuestion.getCorrect_answer());
 //        }
 
 
