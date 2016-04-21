@@ -34,7 +34,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>nosetests --with-xunit back-end/tests/mi_quiz_tests.py back-end/tests/mi_info_tests.py</command>
+      <command>nosetests --with-xunit back-end/tests/mi_*_tests.py</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
@@ -94,5 +94,44 @@ sudo service apache2 restart</execCommand>
       <markBuildUnstable>false</markBuildUnstable>
     </org.jenkinsci.plugins.postbuildscript.PostBuildScript>
   </publishers>
-  <buildWrappers/>
+  <buildWrappers>
+    <jenkins.plugins.publish__over__ssh.BapSshPreBuildWrapper plugin="publish-over-ssh@1.14">
+      <preBuild>
+        <consolePrefix>SSH: </consolePrefix>
+        <delegate>
+          <publishers>
+            <jenkins.plugins.publish__over__ssh.BapSshPublisher>
+              <configName>MSD_EC2</configName>
+              <verbose>false</verbose>
+              <transfers>
+                <jenkins.plugins.publish__over__ssh.BapSshTransfer>
+                  <remoteDirectory></remoteDirectory>
+                  <sourceFiles></sourceFiles>
+                  <excludes></excludes>
+                  <removePrefix></removePrefix>
+                  <remoteDirectorySDF>false</remoteDirectorySDF>
+                  <flatten>false</flatten>
+                  <cleanRemote>false</cleanRemote>
+                  <noDefaultExcludes>false</noDefaultExcludes>
+                  <makeEmptyDirs>false</makeEmptyDirs>
+                  <patternSeparator>[, ]+</patternSeparator>
+                  <execCommand>cd $WORKSPACE/back-end/mimprove
+sudo mkdir data
+sudo chmod 777 data</execCommand>
+                  <execTimeout>120000</execTimeout>
+                  <usePty>false</usePty>
+                </jenkins.plugins.publish__over__ssh.BapSshTransfer>
+              </transfers>
+              <useWorkspaceInPromotion>false</useWorkspaceInPromotion>
+              <usePromotionTimestamp>false</usePromotionTimestamp>
+            </jenkins.plugins.publish__over__ssh.BapSshPublisher>
+          </publishers>
+          <continueOnError>false</continueOnError>
+          <failOnError>false</failOnError>
+          <alwaysPublishFromMaster>false</alwaysPublishFromMaster>
+          <hostConfigurationAccess class="jenkins.plugins.publish_over_ssh.BapSshAlwaysRunPublisherPlugin" reference="../.."/>
+        </delegate>
+      </preBuild>
+    </jenkins.plugins.publish__over__ssh.BapSshPreBuildWrapper>
+  </buildWrappers>
 </project>
