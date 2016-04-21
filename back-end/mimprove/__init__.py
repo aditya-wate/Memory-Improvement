@@ -1,5 +1,6 @@
 import flask
 from flask import jsonify
+import mimprove.views.user
 import mimprove.views.quiz
 import mimprove.views.picture
 from mimprove.models.auth import InvalidCredentials
@@ -18,6 +19,7 @@ def create_app():
 
     app.register_blueprint(mimprove.views.quiz.quiz_view, url_prefix="/quiz")
     app.register_blueprint(mimprove.views.picture.picture_view, url_prefix="/picture")
+    app.register_blueprint(mimprove.views.user.user_view, url_prefix="/user")
     
     # Registering handle for InvalidCredentials 
     @app.errorhandler(InvalidCredentials)
@@ -26,7 +28,16 @@ def create_app():
         response.status_code = error.status_code
         return response
 
+    @app.errorhandler(400)
+    def custom400(error):
+        response = jsonify({'message': error.description})
+        return response, 400
 
+    @app.errorhandler(500)
+    def custom500(error):
+        response = jsonify({'message': error.description})
+        return response, 500
+    
     return app
 
 

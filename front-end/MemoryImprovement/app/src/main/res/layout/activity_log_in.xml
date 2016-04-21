@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,68 +7,71 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.msd.frontend.mimprove.LogInActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        >
+
+
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
-        android:ems="10"
+
         android:id="@+id/emailText"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="77dp"
         android:hint="@string/email" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:ems="10"
         android:id="@+id/passwordText"
-        android:layout_below="@+id/emailText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
+
         android:hint="@string/password"
        />
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="@string/sigInButton"
         android:id="@+id/signInbutton"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:onClick="HomeScreen"/>
+        android:layout_marginTop="20dp"
+        />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/linkToRegister"
+            android:id="@+id/textView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"/>
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="@string/register"
         android:id="@+id/linkToRegister"
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/signInbutton"
         android:layout_alignStart="@+id/signInbutton"
-        android:layout_marginBottom="67dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Login Failed"
-        android:id="@+id/error"
-        android:layout_above="@+id/linkToRegister"
-        android:layout_centerHorizontal="true"
-        android:visibility = "gone"
+        android:layout_marginTop="15dp"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/linkToRegister"
-        android:id="@+id/textView"
-        android:layout_above="@+id/linkToRegister"
-        android:layout_centerHorizontal="true" />
 
-</RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

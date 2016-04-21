@@ -1,7 +1,7 @@
 DROP SCHEMA IF EXISTS memory_improve;
 CREATE SCHEMA memory_improve;
 USE memory_improve;
-SET AUTOCOMMIT=1;
+SET AUTOCOMMIT=0;
 
 SELECT 'CREATING SCHEMA STRUCTURE' as 'INFO';
 
@@ -47,6 +47,8 @@ CREATE TABLE user (
   password_hash CHAR(61) NOT NULL,
   first_name CHAR(30) NOT NULL,
   last_name CHAR(30) NOT NULL,
+  dob DATE NOT NULL,
+  gender CHAR(1),
   PRIMARY KEY (user_id)
 );
 
@@ -387,21 +389,27 @@ INSERT INTO category_phone VALUES (4, "Blackberry");
 -- Insertion of test data 'test_password'
 INSERT INTO user VALUES (1, 
 						'test_patient', 
-						'$2a$08$trgwUanfBAPZCYSueQauP.CJS2WTNBYjGxYzbZIXfai2SuFFRDh0K',
+						'$2a$12$G8mqNEqTgdHo.fzfCprTk.L5zI4NPIF92pCD3.Nl1Y.rWZvJW0UWa',
                         'John',
-                        'Doe');
+                        'Doe',
+                        '1986-07-14',
+                        'M');
 
 INSERT INTO user VALUES (2, 
 						'test_guardian', 
-						'$2a$08$trgwUanfBAPZCYSueQauP.CJS2WTNBYjGxYzbZIXfai2SuFFRDh0K',
+						'$2a$12$G8mqNEqTgdHo.fzfCprTk.L5zI4NPIF92pCD3.Nl1Y.rWZvJW0UWa',
                         'Jane',
-                        'Doe');
+                        'Doe',
+                        '1970-12-23',
+                        'F');
                         
 INSERT INTO user VALUES (3, 
 						'test_patient2', 
-						'$2a$08$trgwUanfBAPZCYSueQauP.CJS2WTNBYjGxYzbZIXfai2SuFFRDh0K',
+						'$2a$12$G8mqNEqTgdHo.fzfCprTk.L5zI4NPIF92pCD3.Nl1Y.rWZvJW0UWa',
                         'Bob',
-                        'Dylan');
+                        'Dylan',
+                        '1976-09-22',
+                        'M');
 
 -- guardian for user 1
 INSERT INTO guardian VALUES (1,2);
@@ -542,19 +550,19 @@ INSERT INTO personal_info VALUES(16,
 INSERT INTO picture VALUES(1,
 							'Who is your favorite celebrity?',
                             'Bill Murray',
-                            'aa3ffb50-4924-451b-95f5-2717f96991ef.jpg',
+                            'a3b0c624-9250-47c6-a7a2-4918b7964042.jpg',
                             2);
                             
 INSERT INTO picture VALUES(2, 
 							'Who is this little girl?', 
                             'Daughter', 
-                            '10e21d6d-0cb7-4f26-a407-1dce113b9bf9.jpg', 
+                            '0c4de627-924e-418f-ae9a-91dd95328d70.jpg', 
                             2);
                             
 INSERT INTO picture VALUES(3, 
 							'Which city is this house in?', 
                             'New York', 
-                            '9b89461b-19d2-4191-b4a4-e8d441287874.jpg',
+                            'ef5c2e11-e5a6-4297-9319-5e9de83b6725.jpg',
                             2);
                             
 COMMIT;

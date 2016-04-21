@@ -9,12 +9,18 @@ import com.msd.frontend.mimprove.sdutils.NameUtils;
 
 public class HomeScreen extends AppCompatActivity
 {
+    static String userName="";
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+
         //NameUtils.saveUserName(this,"test_patient");
+
+     //   Intent intent=getIntent();
+     //   userName=intent.getStringExtra("username");
+
         //createQuiz.getServerData();
     }
     public void OpenGallery(View view){

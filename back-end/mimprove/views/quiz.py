@@ -30,7 +30,7 @@ def get_quiz():
     with con:    
         username = request.form['username']
         if username == '':
-            abort(400)
+            abort(400, "Null Username")
         cur = con.cursor()
         resp = dict()
         quiz = list()
@@ -54,12 +54,15 @@ def get_quiz():
                 category = row[1]
                 get_options = "SELECT c_name\
                                 FROM %s\
-                                ORDER BY RAND() LIMIT 3;"%(category)
+                                ORDER BY RAND() LIMIT 4;"%(category)
                 cur.execute(get_options)
                 categories = cur.fetchall()
-                question['incorrect_answer1'] = categories[0][0]
-                question['incorrect_answer2'] = categories[1][0]
-                question['incorrect_answer3'] = categories[2][0]
+                category_list = [categories[0][0],categories[1][0],categories[2][0],categories[3][0]]
+                if question['correct_answer'] in category_list:
+                    category_list.remove(question['correct_answer'])
+                question['incorrect_answer1'] = category_list[0]
+                question['incorrect_answer2'] = category_list[1]
+                question['incorrect_answer3'] = category_list[2]
                 quiz.append(question)
             resp['quiz'] = quiz
             return jsonify(resp)
@@ -93,7 +96,7 @@ def save_quiz():
         content = request.json
         username = content['username']
         if username == "":
-            abort(400)
+            abort(400, "Null Username")
 
         cur = con.cursor()
         
@@ -164,7 +167,7 @@ def get_info():
         
         try:
             row_count = cur.execute(personal_info)
-        except MySQLdb.Error, e:
+        except mdb.Error, e:
             try:
                 print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
             except IndexError:
@@ -210,7 +213,7 @@ def save_info():
         content = request.json
         username = content['username']
         if username == "":
-            abort(400)
+            abort(400, "Null Username")
 
         cur = con.cursor()
         
@@ -219,7 +222,7 @@ def save_info():
 
         try:
             row_count = cur.execute(stmt_patient,[username])
-        except MySQLdb.Error, e:
+        except mdb.Error, e:
             try:
                 print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
             except IndexError:
@@ -288,7 +291,7 @@ def get_history():
         
         try:
             row_count = cur.execute(hist_stmt,[username])
-        except MySQLdb.Error, e:
+        except mdb.Error, e:
             try:
                 print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
             except IndexError:

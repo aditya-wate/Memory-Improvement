@@ -1,92 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.msd.frontend.mimprove.HomeScreenActivity">
 
-    <Button
-        android:id="@+id/angry_btn"
-        android:text="Input Quiz"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:background="@drawable/buttonshape"
-        android:shadowColor="#695473"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="79dp"
-        android:onClick="InputQuiz"/>
-    <Button
-        android:id="@+id/angry_bt"
-        android:text="Take Quiz"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:background="@drawable/buttonshape2"
-        android:shadowColor="#9168A8"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:layout_below="@+id/angry_btn"
-        android:layout_alignLeft="@+id/angry_btn"
-        android:layout_alignStart="@+id/angry_btn"
-        android:onClick="TakeQuiz"
-        />
-    <Button
-        android:id="@+id/angr"
-        android:text="Picture Quiz"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:background="@drawable/buttonshape6"
-        android:shadowColor="#9168A8"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:layout_below="@+id/angryb"
-        android:layout_alignLeft="@+id/angryb"
-        android:layout_alignStart="@+id/angryb"
-        android:onClick="OpenPictureQuiz"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/angry_b"
-        android:text="Calendar"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:background="@drawable/buttonshape3"
-        android:shadowColor="#9168A8"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:layout_below="@+id/angry_bt"
-        android:layout_alignLeft="@+id/angry_bt"
-        android:layout_alignStart="@+id/angry_bt"
-        android:onClick="OpenCalendar"/>
-    <Button
-        android:id="@+id/angryb"
-        android:text="Gallery"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:background="@drawable/buttonshape4"
-        android:shadowColor="#9168A8"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:layout_below="@+id/angry_b"
-        android:layout_centerHorizontal="true"
-        android:onClick="OpenGallery"/>
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:gravity="center_horizontal|center_vertical"
+
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/angry_btn"
+                android:layout_width="300dp"
+                android:layout_height="75dp"
+                android:background="@drawable/buttonshape"
+                android:onClick="InputQuiz"
+                android:shadowColor="#695473"
+                android:text="Input Quiz"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/angry_bt"
+                android:layout_width="300dp"
+                android:layout_height="75dp"
+                android:layout_alignLeft="@+id/angry_btn"
+                android:layout_alignStart="@+id/angry_btn"
+                android:layout_below="@+id/angry_btn"
+                android:background="@drawable/buttonshape2"
+                android:onClick="TakeQuiz"
+                android:shadowColor="#9168A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Take Quiz"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/angr"
+                android:layout_width="300dp"
+                android:layout_height="75dp"
+                android:layout_alignLeft="@+id/angryb"
+                android:layout_alignStart="@+id/angryb"
+                android:layout_below="@+id/angryb"
+                android:background="@drawable/buttonshape6"
+                android:onClick="OpenPictureQuiz"
+                android:shadowColor="#9168A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Picture Quiz"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/angry_b"
+                android:layout_width="300dp"
+                android:layout_height="75dp"
+                android:layout_alignLeft="@+id/angry_bt"
+                android:layout_alignStart="@+id/angry_bt"
+                android:layout_below="@+id/angry_bt"
+                android:background="@drawable/buttonshape3"
+                android:onClick="OpenCalendar"
+                android:shadowColor="#9168A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Calendar"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/angryb"
+                android:layout_width="300dp"
+                android:layout_height="75dp"
+                android:layout_below="@+id/angry_b"
+                android:background="@drawable/buttonshape4"
+                android:onClick="OpenGallery"
+                android:shadowColor="#9168A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Gallery"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="25dp"
+                android:textSize="30sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

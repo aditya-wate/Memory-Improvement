@@ -2,7 +2,6 @@ import flask, json, os, base64, uuid
 from flask import request, abort, jsonify, current_app
 import MySQLdb as mdb
 from mimprove.views import *
-from datetime import datetime
 
 picture_view = flask.Blueprint('picture', __name__)
 
@@ -31,7 +30,7 @@ def get_quiz():
     with con:    
         username = request.form['username']
         if username == '':
-            abort(400)
+            abort(400, "Null Username")
         cur = con.cursor()
         resp = dict()
         quiz = list()
@@ -53,7 +52,7 @@ def get_quiz():
                         data = data_file.read()
                 except IOError as io:
                     print io
-                    abort(422)
+                    abort(500,io.strerror)
                 question['file'] = base64.b64encode(data).decode()
                 quiz.append(question)
             resp['pic_quiz'] = quiz
@@ -91,14 +90,14 @@ def save_quiz():
         cur = con.cursor()
         
         if username == "":
-            abort(400)
+            abort(400, "Null Username")
 
         stmt_patient = "SELECT p.patient_id FROM patient p, user u\
                 WHERE p.user_id = u.user_id and u.username = %s"
 
         try:
             row_count = cur.execute(stmt_patient,[username])
-        except MySQLdb.Error, e:
+        except mdb.Error, e:
             try:
                 print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
             except IndexError:
@@ -125,7 +124,7 @@ def save_quiz():
                         f.write(data)
                 except IOError as io:
                     print io
-                    abort(422)
+                    abort(500,io.strerror)
 
                 #get quiz attributes
                 correct_answer = quiz['correct_answer']
@@ -173,7 +172,7 @@ def get_pics():
     with con:    
         username = request.form['username']
         if username == '':
-            abort(400)
+            abort(400, "Null Username")
         cur = con.cursor()
         resp = dict()
         pics = list()
@@ -192,7 +191,7 @@ def get_pics():
                         data = data_file.read()
                 except IOError as io:
                     print io
-                    abort(422)
+                    abort(500,io.strerror)
                 pics.append(base64.b64encode(data).decode())
             resp['pictures'] = pics
             return jsonify(resp)
