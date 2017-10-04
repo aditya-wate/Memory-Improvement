@@ -56,7 +56,10 @@ def login():
         else:
             return ('User not found', 204)
 
-
+"""
+TODO: register:Allow user to send hashed password, then we can remove the hashing here. 
+This should be secure for in-transmission clear-text password.
+"""
 @user_view.route('/register', methods=['POST'])
 def register():
     """
